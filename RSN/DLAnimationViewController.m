@@ -24,11 +24,11 @@
 }
 -(void)viewDidAppear:(BOOL)animated{
     // vibrate
-    for (int i = 1; i < 4; i++) {
-        [self performSelector:@selector(vibe:) withObject:self afterDelay:i *.4f];
+    for (int i = 1; i < 6; i++) {
+        [self performSelector:@selector(vibe:) withObject:self afterDelay:i *.3f];
     }
     [self animateSplashScreen];
-    [self performSelector:@selector(showMainMenu) withObject:nil afterDelay:1.1];
+    [self performSelector:@selector(showMainMenu) withObject:nil afterDelay:1.541];
    
 }
 
@@ -46,13 +46,13 @@
     // Dispose of any resources that can be recreated.
 }
 -(void)animateSplashScreen{
-    self.viewToAnimate.transform = CGAffineTransformMakeTranslation(5.0, -5.0);
-    [UIView animateWithDuration:0.14
-                          delay:0.0
+    self.viewToAnimate.transform = CGAffineTransformMakeTranslation(7.0, -7.0);
+    [UIView animateWithDuration:0.16
+                          delay:0.1
                         options:UIViewAnimationOptionAutoreverse
                      animations:^{
                          UIView.animationRepeatCount = 6;
-                         self.viewToAnimate.transform = CGAffineTransformMakeTranslation(-5.0, 5.0);
+                         self.viewToAnimate.transform = CGAffineTransformMakeTranslation(-7.0, 7.0);
                      }
                      completion:^(BOOL finished){
                          self.viewToAnimate.transform = CGAffineTransformIdentity;

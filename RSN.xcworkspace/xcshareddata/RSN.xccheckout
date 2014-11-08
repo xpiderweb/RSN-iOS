@@ -10,29 +10,29 @@
 	<string>RSN</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>92F1C294F22C6E870B47D9CE844AFC2840720D28</key>
-		<string>https://github.com/rquesada/RSN.git</string>
+		<key>E38969E0A425603DCC64B65A26CA5275F7EE7CF8</key>
+		<string>https://bitbucket.org/lionx214/rsn.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>RSN/RSN.xcworkspace</string>
+	<string>RSN.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>92F1C294F22C6E870B47D9CE844AFC2840720D28</key>
-		<string>../..</string>
+		<key>E38969E0A425603DCC64B65A26CA5275F7EE7CF8</key>
+		<string>..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/rquesada/RSN.git</string>
+	<string>https://bitbucket.org/lionx214/rsn.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>92F1C294F22C6E870B47D9CE844AFC2840720D28</string>
+	<string>E38969E0A425603DCC64B65A26CA5275F7EE7CF8</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>92F1C294F22C6E870B47D9CE844AFC2840720D28</string>
+			<string>E38969E0A425603DCC64B65A26CA5275F7EE7CF8</string>
 			<key>IDESourceControlWCCName</key>
 			<string>RSN</string>
 		</dict>

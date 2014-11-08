@@ -973,7 +973,7 @@
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OA3-eX-uxb">
-                                <rect key="frame" x="39" y="426" width="30" height="30"/>
+                                <rect key="frame" x="41" y="360" width="30" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="30" id="4Ln-Ib-DdU"/>
                                     <constraint firstAttribute="height" constant="30" id="tyc-nd-UW5"/>
@@ -983,19 +983,6 @@
                                 </state>
                                 <connections>
                                     <action selector="facebokHandler:" destination="5mR-Ci-Ft7" eventType="touchUpInside" id="eEc-Tw-6Cq"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5gW-zi-12k">
-                                <rect key="frame" x="147" y="426" width="30" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="30" id="atc-1F-eWn"/>
-                                    <constraint firstAttribute="height" constant="30" id="g7S-PM-DXT"/>
-                                </constraints>
-                                <state key="normal" image="RSN-MenuBtnTwitter.png">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="twitterHandler:" destination="5mR-Ci-Ft7" eventType="touchUpInside" id="TFY-Fe-HSJ"/>
                                 </connections>
                             </button>
                             <button contentMode="scaleAspectFit" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OEY-k3-iNB">
@@ -1124,15 +1111,31 @@
                                     <constraint firstAttribute="height" constant="46" id="X3T-iS-u9c"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5gW-zi-12k">
+                                <rect key="frame" x="142" y="360" width="30" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="atc-1F-eWn"/>
+                                    <constraint firstAttribute="height" constant="30" id="g7S-PM-DXT"/>
+                                </constraints>
+                                <state key="normal" image="RSN-MenuBtnTwitter.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="twitterHandler:" destination="5mR-Ci-Ft7" eventType="touchUpInside" id="TFY-Fe-HSJ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="OEY-k3-iNB" firstAttribute="leading" secondItem="1jK-fc-daH" secondAttribute="leadingMargin" constant="30" id="0PS-hI-Clp"/>
                             <constraint firstItem="OEY-k3-iNB" firstAttribute="top" secondItem="5gW-zi-12k" secondAttribute="bottom" constant="10" id="Jak-lM-PEl"/>
+                            <constraint firstItem="OA3-eX-uxb" firstAttribute="top" secondItem="hrr-uB-8e8" secondAttribute="bottom" constant="5" id="Pad-QE-Fls"/>
                             <constraint firstItem="OEY-k3-iNB" firstAttribute="top" secondItem="OA3-eX-uxb" secondAttribute="bottom" constant="10" id="S1P-Xb-aDL"/>
                             <constraint firstItem="hrr-uB-8e8" firstAttribute="top" secondItem="Ygf-Wh-Slk" secondAttribute="bottom" constant="6" id="bEg-Vi-vQq"/>
                             <constraint firstItem="Ygf-Wh-Slk" firstAttribute="leading" secondItem="1jK-fc-daH" secondAttribute="leadingMargin" constant="70" id="eIV-9l-ni5"/>
                             <constraint firstItem="OA3-eX-uxb" firstAttribute="leading" secondItem="1jK-fc-daH" secondAttribute="leadingMargin" constant="65" id="hHt-YJ-FCC"/>
+                            <constraint firstItem="5gW-zi-12k" firstAttribute="top" secondItem="hrr-uB-8e8" secondAttribute="bottom" constant="5" id="oUp-JK-IXG"/>
+                            <constraint firstItem="WOu-Sd-JJZ" firstAttribute="top" secondItem="3H5-rv-57k" secondAttribute="bottom" constant="2" id="yhf-7w-Wnx"/>
                             <constraint firstItem="Ygf-Wh-Slk" firstAttribute="top" secondItem="1jK-fc-daH" secondAttribute="topMargin" constant="20" id="zTt-Wm-ter"/>
                         </constraints>
                     </view>

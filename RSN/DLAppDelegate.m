@@ -9,7 +9,10 @@
 #import "DLAppDelegate.h"
 #import "DLRSNModel.h"
 #import <AudioToolbox/AudioToolbox.h>
+#import "TestFlight.h"
+
 @implementation DLAppDelegate
+
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -29,7 +32,10 @@
         [defaults setValue:@"3" forKey:@"magnitud"];
         [defaults synchronize];
     }
-    
+    // start of your application:didFinishLaunchingWithOptions // ...
+    [TestFlight takeOff:@"a47a1879-6e73-4d8e-b22e-7d9c68a5fcab"];
+    // The rest of your application:didFinishLaunchingWithOptions method// ...
+
     return YES;
 }
 

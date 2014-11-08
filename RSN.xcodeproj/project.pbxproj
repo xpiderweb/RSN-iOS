@@ -202,6 +202,12 @@
 		C54F3ABB1A0D7A21001F8258 /* hoy222.png in Resources */ = {isa = PBXBuildFile; fileRef = C54F3AB91A0D7A21001F8258 /* hoy222.png */; };
 		C54F3ABD1A0D7AE7001F8258 /* hoytest.png in Resources */ = {isa = PBXBuildFile; fileRef = C54F3ABC1A0D7AE7001F8258 /* hoytest.png */; };
 		C54F3ABF1A0D7B85001F8258 /* ultima_22.png in Resources */ = {isa = PBXBuildFile; fileRef = C54F3ABE1A0D7B85001F8258 /* ultima_22.png */; };
+		C54F3B211A0D9912001F8258 /* DBChooser.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C54F3B1F1A0D9912001F8258 /* DBChooser.bundle */; };
+		C54F3B221A0D9912001F8258 /* DBChooser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C54F3B201A0D9912001F8258 /* DBChooser.framework */; };
+		C54F3B2A1A0D9F71001F8258 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C54F3B241A0D9F71001F8258 /* libTestFlight.a */; };
+		C54F3B2B1A0D9F71001F8258 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = C54F3B251A0D9F71001F8258 /* README.md */; };
+		C54F3B2C1A0D9F71001F8258 /* release_notes.md in Sources */ = {isa = PBXBuildFile; fileRef = C54F3B261A0D9F71001F8258 /* release_notes.md */; };
+		C54F3B301A0DA111001F8258 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C54F3B2F1A0DA111001F8258 /* libz.dylib */; };
 		C5F4EB941A0C7EB2008932E3 /* aplicacion-bocetos-graficos_03.png in Resources */ = {isa = PBXBuildFile; fileRef = C5F4EB901A0C7EB2008932E3 /* aplicacion-bocetos-graficos_03.png */; };
 		C5F4EB951A0C7EB2008932E3 /* aplicacion-bocetos-graficos_06.png in Resources */ = {isa = PBXBuildFile; fileRef = C5F4EB911A0C7EB2008932E3 /* aplicacion-bocetos-graficos_06.png */; };
 		C5F4EB961A0C7EB2008932E3 /* aplicacion-bocetos-graficos_08.png in Resources */ = {isa = PBXBuildFile; fileRef = C5F4EB921A0C7EB2008932E3 /* aplicacion-bocetos-graficos_08.png */; };
@@ -450,6 +456,16 @@
 		C54F3AB91A0D7A21001F8258 /* hoy222.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hoy222.png; sourceTree = "<group>"; };
 		C54F3ABC1A0D7AE7001F8258 /* hoytest.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hoytest.png; sourceTree = "<group>"; };
 		C54F3ABE1A0D7B85001F8258 /* ultima_22.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ultima_22.png; sourceTree = "<group>"; };
+		C54F3B1F1A0D9912001F8258 /* DBChooser.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = DBChooser.bundle; sourceTree = "<group>"; };
+		C54F3B201A0D9912001F8258 /* DBChooser.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DBChooser.framework; sourceTree = "<group>"; };
+		C54F3B241A0D9F71001F8258 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
+		C54F3B251A0D9F71001F8258 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		C54F3B261A0D9F71001F8258 /* release_notes.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = release_notes.md; sourceTree = "<group>"; };
+		C54F3B271A0D9F71001F8258 /* TestFlight+AsyncLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+AsyncLogging.h"; sourceTree = "<group>"; };
+		C54F3B281A0D9F71001F8258 /* TestFlight+ManualSessions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+ManualSessions.h"; sourceTree = "<group>"; };
+		C54F3B291A0D9F71001F8258 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
+		C54F3B2D1A0DA097001F8258 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
+		C54F3B2F1A0DA111001F8258 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		C5F4EB901A0C7EB2008932E3 /* aplicacion-bocetos-graficos_03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "aplicacion-bocetos-graficos_03.png"; sourceTree = "<group>"; };
 		C5F4EB911A0C7EB2008932E3 /* aplicacion-bocetos-graficos_06.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "aplicacion-bocetos-graficos_06.png"; sourceTree = "<group>"; };
 		C5F4EB921A0C7EB2008932E3 /* aplicacion-bocetos-graficos_08.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "aplicacion-bocetos-graficos_08.png"; sourceTree = "<group>"; };
@@ -469,6 +485,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C54F3B301A0DA111001F8258 /* libz.dylib in Frameworks */,
+				C54F3B2A1A0D9F71001F8258 /* libTestFlight.a in Frameworks */,
+				C54F3B221A0D9912001F8258 /* DBChooser.framework in Frameworks */,
 				B88DB44B18A1EAF800CDF5C4 /* AddressBook.framework in Frameworks */,
 				11D50DCA18651CDE00B07A74 /* CoreLocation.framework in Frameworks */,
 				11D50DC61865169E00B07A74 /* MapKit.framework in Frameworks */,
@@ -580,8 +599,13 @@
 		1172FB46185011C900F23035 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C54F3B2F1A0DA111001F8258 /* libz.dylib */,
+				C54F3B2D1A0DA097001F8258 /* libTestFlight.a */,
 				B88DB44A18A1EAF800CDF5C4 /* AddressBook.framework */,
 				11D50DC918651CDE00B07A74 /* CoreLocation.framework */,
+				C54F3B1F1A0D9912001F8258 /* DBChooser.bundle */,
+				C54F3B201A0D9912001F8258 /* DBChooser.framework */,
+				C54F3B231A0D9F71001F8258 /* TestFlightSDK3.0.2 */,
 				11D50DC51865169E00B07A74 /* MapKit.framework */,
 				1172FB47185011C900F23035 /* Foundation.framework */,
 				1172FB49185011C900F23035 /* CoreGraphics.framework */,
@@ -1198,6 +1222,19 @@
 			name = Animation;
 			sourceTree = "<group>";
 		};
+		C54F3B231A0D9F71001F8258 /* TestFlightSDK3.0.2 */ = {
+			isa = PBXGroup;
+			children = (
+				C54F3B241A0D9F71001F8258 /* libTestFlight.a */,
+				C54F3B251A0D9F71001F8258 /* README.md */,
+				C54F3B261A0D9F71001F8258 /* release_notes.md */,
+				C54F3B271A0D9F71001F8258 /* TestFlight+AsyncLogging.h */,
+				C54F3B281A0D9F71001F8258 /* TestFlight+ManualSessions.h */,
+				C54F3B291A0D9F71001F8258 /* TestFlight.h */,
+			);
+			path = TestFlightSDK3.0.2;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1263,6 +1300,20 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				de,
+				"es-ES",
+				es,
+				fr,
+				id,
+				it,
+				ja,
+				ko,
+				ms,
+				pl,
+				pt,
+				ru,
+				"zh-Hans",
+				"zh-Hant",
 			);
 			mainGroup = 1172FB3B185011C900F23035;
 			productRefGroup = 1172FB45185011C900F23035 /* Products */;
@@ -1345,6 +1396,7 @@
 				C5311AED1A0CB4230015A312 /* Contents.json in Resources */,
 				C5311A981A0CB4230015A312 /* Contents.json in Resources */,
 				11DC3F4518EE74840022AB34 /* cell_middle.png in Resources */,
+				C54F3B211A0D9912001F8258 /* DBChooser.bundle in Resources */,
 				C5F4EB961A0C7EB2008932E3 /* aplicacion-bocetos-graficos_08.png in Resources */,
 				C52F74911A0C9BF600D83F03 /* BotonesContacto-11.png in Resources */,
 				C5311ADD1A0CB4230015A312 /* Contents.json in Resources */,
@@ -1508,6 +1560,7 @@
 				11DC3F3C18EE6A0E0022AB34 /* DLNoticiaVO.m in Sources */,
 				1176E3C71906434D004486B7 /* DLNoticiaDetalleViewController.m in Sources */,
 				115324A7186E99BE00984BF7 /* DLConfiguracionViewController.m in Sources */,
+				C54F3B2B1A0D9F71001F8258 /* README.md in Sources */,
 				11F4F94318EA7173007C0DC9 /* DLSismoVO.m in Sources */,
 				11D50DC41865143000B07A74 /* DLSismosViewController.m in Sources */,
 				114B04C51885147800AE62AE /* DLRSNModel.m in Sources */,
@@ -1515,6 +1568,7 @@
 				C54F3AAB1A0D4D80001F8258 /* DLAnimationViewController.m in Sources */,
 				1172FB54185011C900F23035 /* main.m in Sources */,
 				11F2CE3718601A9200E322A1 /* DLLeftViewController.m in Sources */,
+				C54F3B2C1A0D9F71001F8258 /* release_notes.md in Sources */,
 				11ADAC6D18E3D9F5005E412F /* DLUltimosSismosViewController.m in Sources */,
 				115324A1186E995D00984BF7 /* DLContactoViewController.m in Sources */,
 				1133C8A718EE3A7400BA41FF /* DLSismosContainerViewController.m in Sources */,
@@ -1648,10 +1702,20 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/dropbox-ios-dropins-sdk-1.2.1",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RSN/RSN-Prefix.pch";
 				INFOPLIST_FILE = "RSN/RSN-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/TestFlightSDK3.0.2",
+					"$(PROJECT_DIR)",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1667,10 +1731,20 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/dropbox-ios-dropins-sdk-1.2.1",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RSN/RSN-Prefix.pch";
 				INFOPLIST_FILE = "RSN/RSN-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/TestFlightSDK3.0.2",
+					"$(PROJECT_DIR)",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;

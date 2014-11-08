@@ -64,7 +64,7 @@
 }
 
 - (IBAction)callPhoneHandler:(id)sender{
-    NSString *phoneCallNum = @"tel://+150622538407";
+    NSString *phoneCallNum = @"tel://22538407";
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phoneCallNum]];
 }
 @end
