@@ -13,13 +13,13 @@
 #import "DLSismosContainerViewController.h"
 
 #define CENTER_TAG 1
-#define LEFT_PANEL_TAG 2
+#define LEFT_PANEL_TAG 4
 #define RIGHT_PANEL_TAG 3
 
-#define CORNER_RADIUS 4
+#define CORNER_RADIUS 10
 
-#define SLIDE_TIMING .25
-#define PANEL_WIDTH 50
+#define SLIDE_TIMING .15
+#define PANEL_WIDTH 40
 
 @interface DLMainViewController ()<UIGestureRecognizerDelegate,DLCenterViewControllerDelegate>
 
@@ -57,7 +57,6 @@ NSString * const DLMainViewControllerShowMenu = @"DLMainViewControllerShowMenu";
 //    [self.centerViewController.currentShowViewController.view setUserInteractionEnabled:YES];
 //    [self.centerViewController.currentShowViewController.navigationController.navigationBar setUserInteractionEnabled:YES];
 //}
-
 
 #pragma mark - Setup View
 -(void)setupView {
@@ -100,6 +99,7 @@ NSString * const DLMainViewControllerShowMenu = @"DLMainViewControllerShowMenu";
         [self.leftPanelViewController.view removeFromSuperview];
         self.leftPanelViewController = nil;
         _centerViewController.leftButton.tag = 1;
+        _centerViewController.leftButton.hidden = FALSE;
         
         self.showingLeftPanel = NO;
         

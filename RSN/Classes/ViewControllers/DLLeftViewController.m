@@ -13,7 +13,7 @@
 @property (nonatomic, weak) IBOutlet UITableView *myTableView;
 
 @property (nonatomic, strong) NSArray *arrayOfItems;
-@property (weak, nonatomic) IBOutlet UIButton *sendSuggestionsButton;
+
 
 
 
@@ -116,16 +116,7 @@ NSString * const DLLeftSismosContainerItem = @"SismosContainer";
 }
 
 
-- (IBAction)suggestionsButtonPressed:(id)sender {
-    NSURL *emailSuggestions;
-    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"mailto:info@idartestudio.com"]]) {
-        emailSuggestions = [NSURL URLWithString:@"mailto:info@idartestudio.com"];
-    }else{
-        emailSuggestions = [NSURL URLWithString:@"mailto:info@idartestudio.com"];
-    }
-    
-    [[UIApplication sharedApplication] openURL:emailSuggestions];
-}
+
 
 
 

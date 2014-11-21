@@ -13,9 +13,11 @@
 #import "DLConfiguracionViewController.h"
 #import "DLSismosTableViewController.h"
 #import "DLUltimosSismosViewController.h"
+#import "DLMainViewController.h"
 #import "DLSismosContainerViewController.h"
 #include "Logging.h"
 @interface DLCenterViewController ()<DLSismosTableViewControllerDelegate>
+
 
 @property (nonatomic,strong) UINavigationController *navController;
 
@@ -29,6 +31,7 @@
 @synthesize navController;
 @synthesize currentViewController;
 @synthesize currentShowViewController;
+@synthesize delegate;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -45,6 +48,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self setupView];
+    _showMenuButton = TRUE;
 }
 
 /**
@@ -52,6 +56,8 @@
  */
 -(void)setupView{
     [self addNavigationController];
+    [self addShowMenuButton];
+    
 }
 
 /**
@@ -65,25 +71,25 @@
     
     DLSismosContainerViewController *sismosContainerViewController  = [[self storyboard] instantiateViewControllerWithIdentifier:@"DLSismosContainerViewController"];
     [navController setViewControllers:@[sismosContainerViewController]];
-    navController.navigationBar.alpha = 0.2f;
+    navController.navigationBar.alpha = 0.1f;
     navController.navigationBar.translucent = YES;
-    
     currentShowViewController=sismosContainerViewController;
-
     [self setCurrentViewController:DLLeftSismosContainerItem];
-    [self addShowMenuButton];
 }
 
 -(void)addShowMenuButton{
+    // _leftButtonVIew = [[UIView alloc] initWithFrame: CGRectMake(0, 0, 0, 0)];
     self.leftButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.leftButton addTarget:self
                action:@selector(btnMovePanelRight:)
      forControlEvents:UIControlEventTouchDown];
-    UIImage *btnImage = [UIImage imageNamed:@"RSN-ShowMenuButton.png"];
+    UIImage *btnImage = [UIImage imageNamed:@"RSN-menu.png"];
     [self.leftButton setImage:btnImage forState:UIControlStateNormal];
-    self.leftButton.frame = CGRectMake(0, 210.0, 26, 122);
+    self.leftButton.frame = CGRectMake(0, 210, 33, 126);
     self.leftButton.tag = 1;
-    [self.view addSubview:self.leftButton];
+    //[_leftButtonVIew addSubview:self.leftButton];
+    [self.view addSubview:_leftButton];
+    
 }
 
 #pragma mark -
@@ -94,12 +100,12 @@
 	UIButton *button = sender;
 	switch (button.tag) {
 		case 0: {
-			[_delegate movePanelToOriginalPosition];
+			[delegate movePanelToOriginalPosition];
 			break;
 		}
 			
 		case 1: {
-			[_delegate movePanelRight];
+			[delegate movePanelRight];
 			break;
 		}
 			
@@ -121,20 +127,21 @@
             [self.navController popToRootViewControllerAnimated:NO];
         }else if ([itemMenuSelected isEqualToString:DLLeftNoticiasItem]) {
             tempViewController = [[self storyboard] instantiateViewControllerWithIdentifier:@"DLNoticiasTableViewController"];
-            
+            //_leftButton.hidden = TRUE;
         } else if ([itemMenuSelected isEqualToString:DLLeftContactoItem]) {
             tempViewController = [[self storyboard] instantiateViewControllerWithIdentifier:@"DLContactoViewController"];
-
+           // _showMenuButton = FALSE;
         } else if ([itemMenuSelected isEqualToString:DLLeftConfiguracionItem]) {
             tempViewController = [[self storyboard] instantiateViewControllerWithIdentifier:@"DLConfiguracionViewController"];
-
+          //  _showMenuButton = FALSE;
         } else if ([itemMenuSelected isEqualToString:DLLeftSugerenciasItem]) {
             tempViewController = [[self storyboard] instantiateViewControllerWithIdentifier:@"DLSugerenciasViewController"];
             
         } else if ([itemMenuSelected isEqualToString:DLLeftUltimosSismosItem]) {
+
             
             tempViewController = [[self storyboard] instantiateViewControllerWithIdentifier:@"DLUltimosSismosViewController"];
-            
+           // _showMenuButton = FALSE;
             DLUltimosSismosViewController *ultimosSismosViewController = (DLUltimosSismosViewController*)currentShowViewController;
             
             [ultimosSismosViewController addSismosTableViewControllerDelegate:self];
@@ -142,6 +149,7 @@
             
         }else if([itemMenuSelected isEqualToString:DLLeftSismosContainerItem]){
             tempViewController = [[self storyboard] instantiateViewControllerWithIdentifier:@"DLSismosContainerViewController"];
+           // _showMenuButton = TRUE;
         }
         
         
@@ -157,12 +165,14 @@
         if (!foundViewControllerInNav) {
             currentShowViewController =tempViewController;
             [self.navController pushViewController:currentShowViewController animated:NO];
+            
+            _leftButton.hidden = FALSE;
         }
 
         
         [self setCurrentViewController:itemMenuSelected];
     }
-    [_delegate movePanelToOriginalPosition];
+    [delegate movePanelToOriginalPosition];
     
 }
 
@@ -178,13 +188,18 @@
     currentViewController = viewControllerName;
 }
 
-- (void) enableAllViews:(BOOL) enable{
-    for (UIViewController *viewControllerInNav in self.navController.viewControllers) {
-        [viewControllerInNav.view setUserInteractionEnabled:enable];
-        viewControllerInNav.navigationItem.leftBarButtonItem.enabled= enable;
-        [viewControllerInNav.navigationController.navigationBar setUserInteractionEnabled:enable];
-    }
+-(void)showMenuButtonBool{
+    NSLog(@"OK this is calling me but...");
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [_leftButton setHidden:NO];
+        
+    });
 }
+
+- (void) enableAllViews:(BOOL) enable{
+   
+}
+
 
 
 @end

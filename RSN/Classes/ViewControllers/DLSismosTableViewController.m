@@ -12,6 +12,7 @@
 #import "DLSismoVO.h"
 #import "DLSismoDetailViewController.h"
 
+
 @interface DLSismosTableViewController ()<UITableViewDelegate>{
     NSString *tableTitle;
 }

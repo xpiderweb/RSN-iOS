@@ -8,6 +8,7 @@
 
 #import "DLUltimosSismosViewController.h"
 #import "DLSismosTableViewController.h"
+#import "DLCenterViewController.h"
 #import "DLMainViewController.h"
 #import <QuartzCore/QuartzCore.h>
 
@@ -19,6 +20,8 @@
 @property (nonatomic,weak) IBOutlet UILabel *descripcion;
 @property (nonatomic,strong) NSString *dateString;
 @property (weak, nonatomic) IBOutlet UIButton *cancelButton;
+@property (nonatomic, strong) DLCenterViewController *centerViewController;
+
 @end
 
 @implementation DLUltimosSismosViewController

@@ -14,11 +14,15 @@
 #define METERS_PER_MILE 1609.344
 
 @interface DLSismosViewController ()
+@property (nonatomic, assign) BOOL legendOpen;
 
-
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *animationWait;
+@property (nonatomic, strong) DLCenterViewController *centerViewController;
 @property (nonatomic,strong) DLSismosLegendViewController *sismosLengend;
 @property BOOL isLegendHidden;
+@property BOOL showMennu;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *hoySemanaSegmented;
+
 
 -(IBAction)segmentedControlValueChanged:(id)sender;
 
@@ -29,6 +33,7 @@
 @synthesize sismosLengend;
 @synthesize isLegendHidden;
 @synthesize hoySemanaSegmented;
+@synthesize viewControllerDelegate;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -41,8 +46,10 @@
 
 - (void)viewDidLoad{
     [super viewDidLoad];
-    
-    
+    _legendOpen = FALSE;
+    _showMennu = FALSE;
+    _animationWait.hidden = FALSE;
+    [_animationWait startAnimating];
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero] ;
     label.backgroundColor = [UIColor clearColor];
     label.font = [UIFont boldSystemFontOfSize:20.0];
@@ -88,7 +95,8 @@
     
     segmentedControl.selectedSegmentIndex = 1;
     [segmentedControl addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];
-    
+    [_animationWait stopAnimating];
+    _animationWait.hidden = TRUE;
 }
 
 -(void)segmentAction:(UISegmentedControl*)sender {
@@ -102,7 +110,6 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(didReceiveLastSismosWithNotification:) name:DLModelDidReceiveLastSismos object:nil];
     
     [[DLRSNModel sharedInstance]getLastSismos];
-    
     CLGeocoder *geoCode = [[CLGeocoder alloc] init];
     [geoCode geocodeAddressString:@"Costa Rica" completionHandler:^(NSArray *placemarks, NSError *error) {
         if (!error) {
@@ -147,6 +154,7 @@
 #pragma DLSismosLegendViewControllerProtocol Methods
 
 -(void)didTouchLegend{
+    _legendOpen = TRUE;
     if(self.isLegendHidden){
         
         [UIView beginAnimations:@"showLegend" context:nil];
@@ -171,6 +179,11 @@
 -(void)didReceiveLastSismosWithNotification:(NSNotification*)notification{
     
     LogInfo(@"didReceiveLastSismosWithNotification");
+    if (_showMennu == TRUE) {
+        DLCenterViewController *foo = [[DLCenterViewController alloc] init];
+        [foo showMenuButtonBool];
+    }
+    _showMennu = TRUE;
     for (id<MKAnnotation> annotation in _mapView.annotations) {
         [_mapView removeAnnotation:annotation];
     }
@@ -268,5 +281,17 @@
     
     return nil;
 }
+- (IBAction)tapToHide:(id)sender {
+    if (_legendOpen == TRUE) {
+        [UIView beginAnimations:@"hideLegend" context:nil];
+        [UIView setAnimationDuration:0.4];
+        [sismosLengend.view setFrame:CGRectMake(295, 210, 205, 123)];
+        [UIView commitAnimations];
+        self.isLegendHidden = YES;
+    }else{
+        NSLog(@"Nothing To do");
+    }
+}
+
 
 @end

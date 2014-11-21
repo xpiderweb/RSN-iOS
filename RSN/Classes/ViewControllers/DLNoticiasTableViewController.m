@@ -10,13 +10,13 @@
 #import "DLRSNModel.h"
 #import "DLNoticiasTableViewCell.h"
 #import "DLNoticiaVO.h"
-
+#import "DLCenterViewController.h"
 #import "DLNoticiaDetalleViewController.h"
 
 @interface DLNoticiasTableViewController ()
 @property (nonatomic,strong) NSMutableArray *noticiasArray;
 @property (nonatomic,strong) NSDictionary *noticiasDict;
-
+@property (nonatomic, strong) DLCenterViewController *centerViewController;
 @end
 
 @implementation DLNoticiasTableViewController
@@ -35,6 +35,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    NSLog(@"im in news page");
     UIEdgeInsets inset = UIEdgeInsetsMake(5, 0, 0, 0);
     self.tableView.contentInset = inset;
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
@@ -136,6 +137,17 @@
     
 }
 
-
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    if (self.navigationController.visibleViewController != self) {
+        //<Do something since we're closing using something else>
+        NSLog(@"ok we pressed or somehting else");
+        _centerViewController.showMenuButton = TRUE;
+    } else {
+        //<Do something since we're closing because of the back button>
+        NSLog(@"ok we pressed back");
+    }
+}
 
 @end

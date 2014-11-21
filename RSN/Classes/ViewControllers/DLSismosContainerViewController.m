@@ -17,9 +17,11 @@
 
 @property (nonatomic,strong) DLSismosViewController *sismosViewController;
 @property (nonatomic,strong) DLUltimosSismosViewController *sismosUltimosListaController;
+@property (nonatomic, strong) DLCenterViewController *centerViewController;
 @property (weak, nonatomic) IBOutlet UIView *containerViewController;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
 @property (assign) BOOL isMapShowed;
+
 
 
 @end
@@ -92,19 +94,22 @@
 }
 
 - (void)segmentedValueChanged:(id)sender{
-    LogInfo(@"Segmented value changed");
+    LogInfo(@"estoy haciendo algo");
 
     if (segmentedControl.selectedSegmentIndex == 0) {
         if (!isMapShowed) {
             [self.sismosUltimosListaController.view removeFromSuperview];
             [self.containerViewController addSubview:sismosViewController.view];
             isMapShowed = YES;
+            
         }
+        [self.view addSubview:_centerViewController.leftButtonVIew];
     }else{
         if (isMapShowed) {
             if(sismosUltimosListaController == nil){
                 sismosUltimosListaController = [[self storyboard] instantiateViewControllerWithIdentifier:@"DLUltimosSismosViewController"];
             }
+            NSLog(@"aqui me estaria escondiendo");
             [self.sismosViewController.view removeFromSuperview];
             [self.containerViewController addSubview:sismosUltimosListaController.view];
             isMapShowed = NO;
@@ -117,6 +122,7 @@
     [super viewWillAppear:animated];
     DLCenterViewController *viewController = (DLCenterViewController*)[self.navigationController parentViewController];
     [viewController changeCurrentViewControllerWithString:DLLeftSismosItem];
+    
    
 }
 

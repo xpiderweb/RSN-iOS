@@ -13,6 +13,7 @@
 -(IBAction)webOptionPressed:(id)sender;
 -(IBAction)mapOptionPressed:(id)sender;
 -(IBAction)wazeOptionPressed:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *sendSuggestionsButton;
 @end
 
 @implementation DLContactoViewController
@@ -66,5 +67,16 @@
 - (IBAction)callPhoneHandler:(id)sender{
     NSString *phoneCallNum = @"tel://22538407";
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phoneCallNum]];
+}
+
+- (IBAction)suggestionsButtonPressed:(id)sender {
+    NSURL *emailSuggestions;
+    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"mailto:info@idartestudio.com"]]) {
+        emailSuggestions = [NSURL URLWithString:@"mailto:info@idartestudio.com"];
+    }else{
+        emailSuggestions = [NSURL URLWithString:@"mailto:info@idartestudio.com"];
+    }
+    
+    [[UIApplication sharedApplication] openURL:emailSuggestions];
 }
 @end

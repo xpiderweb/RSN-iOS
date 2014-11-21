@@ -24,11 +24,12 @@
 
 @property (nonatomic, assign) id<DLCenterViewControllerDelegate> delegate;
 @property (nonatomic, strong) UIButton *leftButton;
+@property (nonatomic, strong) UIView *leftButtonVIew;
 @property (nonatomic,strong) NSString *currentViewController;
 @property (nonatomic, strong) UIViewController *currentShowViewController;
-
+@property (assign) BOOL showMenuButton;
 -(void)changeCurrentViewControllerWithString:(NSString*)viewControllerName;
 - (void) enableAllViews:(BOOL) enable;
-
+-(void)showMenuButtonBool;
 
 @end
