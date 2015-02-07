@@ -16,6 +16,7 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *doneButton;
 @property (nonatomic,weak) IBOutlet UITextField *fechaTxt;
+@property (weak, nonatomic) IBOutlet UILabel *titleUltimosSismosLabel;
 @property (nonatomic,strong) DLSismosTableViewController *sismosTableViewController;
 @property (nonatomic,weak) IBOutlet UILabel *descripcion;
 @property (nonatomic,strong) NSString *dateString;
@@ -29,6 +30,7 @@
 @synthesize sismosTableViewController;
 @synthesize descripcion;
 @synthesize dateString;
+@synthesize titleUltimosSismosLabel;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -50,6 +52,7 @@
     dateString = [dateFormat stringFromDate:date];
     
     descripcion.textAlignment = NSTextAlignmentJustified;
+    titleUltimosSismosLabel.text = @"Últimos 10 Sismos";
     
     //@NOTE: Change title color and text to navigationbar
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero] ;
@@ -62,6 +65,7 @@
     self.navigationItem.titleView = label;
     label.text = @"Ultimos Sismos";
     [label sizeToFit];
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Atrás" style:UIBarButtonItemStylePlain target:nil action:nil];
     
     //@NOTE: Create datePicker as selection date for textfield fecha
     UIDatePicker *datePicker = [[UIDatePicker alloc]init];
@@ -92,9 +96,9 @@
     
     sismosTableViewController = [[DLSismosTableViewController alloc]init];
     if (isiPhone5) {
-        [sismosTableViewController.view setFrame:CGRectMake(10, 170, 300, 380)];
+        [sismosTableViewController.view setFrame:CGRectMake(10, 180, 300, 380)];
     }else{
-        [sismosTableViewController.view setFrame:CGRectMake(10, 170, 300, 300)];
+        [sismosTableViewController.view setFrame:CGRectMake(10, 180, 300, 300)];
     }
     
 
@@ -114,17 +118,20 @@
     [self.doneButton setHidden:YES];
     [self updateTableWithDate:dateString];
     [self.cancelButton setHidden:NO];
+    titleUltimosSismosLabel.text = @"Resultados de búsqueda";
 }
 
 -(void)dismissDatePicker:(id)sender{
     [self.fechaTxt resignFirstResponder];
     [self.doneButton setHidden:YES];
+    
 }
 
 -(void)updateTextField:(id)sender{
     UIDatePicker *picker = (UIDatePicker*)self.fechaTxt.inputView;
     self.fechaTxt.text = [self formatDateForPresentation:picker.date];
     dateString = [self formatDate:picker.date];
+    
     
 }
 
@@ -151,6 +158,7 @@
 
 - (void) updateTableWithDate:(NSString*)date{
     [sismosTableViewController getSismosWithDateString:date];
+    
 }
 
 #pragma mark - UIGestureRecognizerDelegate
@@ -167,6 +175,8 @@
         sismosTableViewController.getToday = YES;
         [self updateTableWithDate:[self formatDate:[NSDate date]]];
         [self.cancelButton setHidden:YES];
+        [self.doneButton setHidden:YES];
+        titleUltimosSismosLabel.text = @"Últimos 10 Sismos";
         return NO;
     }
     return YES;

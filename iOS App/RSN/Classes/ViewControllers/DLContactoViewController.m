@@ -41,12 +41,14 @@
     self.navigationItem.titleView = label;
     label.text = @"Contacto";//NSLocalizedString(@"PageThreeTitle", @"");
     [label sizeToFit];
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Atrás" style:UIBarButtonItemStylePlain target:nil action:nil];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     DLCenterViewController *viewController = (DLCenterViewController*)[self.navigationController parentViewController];
     [viewController changeCurrentViewControllerWithString:DLLeftContactoItem];
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Atrás" style:UIBarButtonItemStylePlain target:nil action:nil];
 }
 
 -(IBAction)webOptionPressed:(id)sender{

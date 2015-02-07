@@ -11,7 +11,7 @@
 #import "DLRSNModel.h"
 #import "DLMyLocation.h"
 #import "DLCenterViewController.h"
-#define METERS_PER_MILE 1609.344
+#define METERS_PER_MILE 1609
 
 @interface DLSismosViewController ()
 @property (nonatomic, assign) BOOL legendOpen;
@@ -94,6 +94,7 @@
     [segmentedControl addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];
     [_animationWait stopAnimating];
     _animationWait.hidden = TRUE;
+    
 }
 
 #pragma mark -
@@ -115,7 +116,7 @@
             CLLocation *location = place.location;
             CLLocationCoordinate2D coord = location.coordinate;
             
-            MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(coord, 450*METERS_PER_MILE, 450*METERS_PER_MILE);
+            MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(coord, 160*METERS_PER_MILE, 260*METERS_PER_MILE);
             
             MKCoordinateRegion adjustedRegion = [_mapView regionThatFits:viewRegion];
             [_mapView setRegion:adjustedRegion animated:YES];
@@ -126,20 +127,22 @@
         
     }];
     
-    [[NSNotificationCenter defaultCenter]
-     postNotificationName:@"ViewIsShowNotification"
-     object:self];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(RefreshMap)
+                                                 name:UIApplicationDidBecomeActiveNotification object:nil];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    [[NSNotificationCenter defaultCenter]removeObserver:self];
-    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIApplicationDidBecomeActiveNotification
+                                                  object:nil];
 }
 
 -(IBAction)segmentedControlValueChanged:(id)sender{
-    UISegmentedControl *s = (UISegmentedControl *)sender;
+    UISegmentedControl *s = (UISegmentedControl *)sender; [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                                                                          name:UIApplicationDidBecomeActiveNotification
+                                                                                                        object:nil];
     
     if (s.selectedSegmentIndex == 0)
     {
@@ -191,7 +194,7 @@
     LogInfo(@"didReceiveLastSismosWithNotification");
     if (_showMennu == TRUE) {
         //DLCenterViewController *foo = [[DLCenterViewController alloc] init];
-       // [foo showMenuButtonBool];
+        // [foo showMenuButtonBool];
     }
     _showMennu = TRUE;
     for (id<MKAnnotation> annotation in _mapView.annotations) {
@@ -219,10 +222,10 @@
         [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"];
         NSDate *dateFromString = [[NSDate alloc] init];
         dateFromString = [dateFormatter dateFromString:time];
-       
+        
         NSDateFormatter* df_utc = [[NSDateFormatter alloc] init];
         [df_utc setTimeZone:[NSTimeZone timeZoneWithName:@"GTM"]];
-        [df_utc setDateFormat:@"yyyy-MM-dd h:mm a"];
+        [df_utc setDateFormat:@"dd-MM-yyyy h:mm a"];
         
         NSString* ts_utc_string = [df_utc stringFromDate:dateFromString];
         NSLog(@"%@", ts_utc_string);
@@ -256,6 +259,7 @@
         coordinate.longitude = longitude.doubleValue;
         DLMyLocation *annotation = [[DLMyLocation alloc] initWithSize:[NSString stringWithFormat:@"%.1f Mw / %@",size,time] address:address coordinate:coordinate];
         [annotation setColor:color];
+        [annotation setAddress: address];
         [_mapView addAnnotation:annotation];
         if(annotation.color >= 4){
             [_mapView selectAnnotation:annotation animated:YES];

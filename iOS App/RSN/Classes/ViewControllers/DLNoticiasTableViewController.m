@@ -35,7 +35,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NSLog(@"im in news page");
     UIEdgeInsets inset = UIEdgeInsetsMake(5, 0, 0, 0);
     self.tableView.contentInset = inset;
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
@@ -54,8 +53,10 @@
     // ^-Use UITextAlignmentCenter for older SDKs.
     label.textColor = [UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0]; // change this color
     self.navigationItem.titleView = label;
-    label.text = @"Ultimas Noticias";//NSLocalizedString(@"PageThreeTitle", @"");
+    label.text = @"Últimas Noticias";//NSLocalizedString(@"PageThreeTitle", @"");
     [label sizeToFit];
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Atrás" style:UIBarButtonItemStylePlain target:nil action:nil];
+    
     
 }
 
@@ -90,14 +91,11 @@
     static NSString *CellIdentifier = @"NoticiaCell";
     DLNoticiasTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     DLNoticiaVO *noticiaVO = [noticiasArray objectAtIndex:indexPath.row];
-    
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"dd.MM.yy"];
 
-    [cell.date setText:[formatter stringFromDate:noticiaVO.date]];
+    //[cell.date setText:[formatter stringFromDate:noticiaVO.date]];
     [cell.title setText:noticiaVO.title];
     [cell.title setFont:[UIFont fontWithName:@"OpenSans-Semibold" size:8]];
-    [cell.date setFont:[ UIFont fontWithName:@"OpenSans-Light" size:5]];
+    //[cell.date setFont:[ UIFont fontWithName:@"OpenSans-Light" size:5]];
     
     UIImage *background = [self cellBackgroundForRowAtIndexPath:indexPath];
     

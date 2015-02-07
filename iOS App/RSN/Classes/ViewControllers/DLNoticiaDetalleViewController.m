@@ -36,6 +36,7 @@
     NSString *hthmlFixed=[noticiaVO.contentHTML stringByReplacingOccurrencesOfString:@"src=\"images/" withString:@"style=\"width:270px\" src=\"http://www.rsn.ucr.ac.cr/images/"];
 	
     [self.myWebView loadHTMLString:hthmlFixed baseURL:nil];
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Atrás" style:UIBarButtonItemStylePlain target:nil action:nil];
 }
 
 

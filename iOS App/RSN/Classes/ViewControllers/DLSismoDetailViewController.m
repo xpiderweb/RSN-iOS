@@ -39,6 +39,7 @@
     [super viewDidLoad];
     [self changeLabelValues];
 	// Do any additional setup after loading the view.
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Atrás" style:UIBarButtonItemStylePlain target:nil action:nil];
 }
 
 - (void)didReceiveMemoryWarning

@@ -58,6 +58,7 @@
     self.navigationItem.titleView = label;
     label.text = @"Sismos Recientes";
     [label sizeToFit];
+     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Atrás" style:UIBarButtonItemStylePlain target:nil action:nil];
     sismosViewController  = [[self storyboard] instantiateViewControllerWithIdentifier:@"DLSismosViewController"];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(RefreshMap:)];
     [sismosViewController willMoveToParentViewController:self];

@@ -25,12 +25,8 @@ int appBadge;
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
     [[UIApplication sharedApplication] cancelAllLocalNotifications];
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:badgeCount];
-    
-    
-    
-    
     // start of your application:didFinishLaunchingWithOptions // ...
-    [TestFlight takeOff:@"dd7686f1-d281-4ab8-987f-c03827b3a333"];
+    [TestFlight takeOff:@"2a248695-dada-4fca-9ffb-821d27d0651e"];
     // The rest of your apdd7686f1-d281-4ab8-987f-c03827b3a333plication:didFinishLaunchingWithOptions method// ...
     return YES;
 }
@@ -61,10 +57,18 @@ int appBadge;
         UIUserNotificationSettings* notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound categories:nil];
         [[UIApplication sharedApplication] registerUserNotificationSettings:notificationSettings];
         [[UIApplication sharedApplication] registerForRemoteNotifications];
+        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+        NSString *magButton = @"3";
+        [prefs setObject:magButton forKey:@"magButton"];
+        [prefs synchronize];
         
     }else{
         NSLog(@"is this working cause this is io7");
         [[UIApplication sharedApplication] registerForRemoteNotificationTypes: (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+        NSString *magButton = @"3";
+        [prefs setObject:magButton forKey:@"magButton"];
+        [prefs synchronize];
     }
     
     /*
@@ -111,6 +115,8 @@ int appBadge;
     // Storing an NSString:
     NSString *userToken = token;
     [prefs setObject:userToken forKey:@"token"];
+    NSString *magButton = @"3";
+    [prefs setObject:magButton forKey:@"magButton"];
     [prefs synchronize];
     NSString *userNotification = [prefs stringForKey:@"userNotifications"];
     if (userNotification == nil) {

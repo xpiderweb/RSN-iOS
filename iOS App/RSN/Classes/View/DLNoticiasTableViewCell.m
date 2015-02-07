@@ -9,7 +9,7 @@
 #import "DLNoticiasTableViewCell.h"
 
 @implementation DLNoticiasTableViewCell
-@synthesize date,title;
+@synthesize title;
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];

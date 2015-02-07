@@ -53,25 +53,28 @@
     [self setNavigationItemConfiguration];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     float magnitud = [[defaults valueForKey:@"magnitud"]floatValue];
+    [self magButtonLoadConfig];
     
-    if (magnitud==3.0f) {
-        [self level3ButtonHandler:nil];
-    }else if (magnitud==4.0f){
-        [self level4ButtonHandler:nil];
-    }else if (magnitud==5.0f){
-        [self level5ButtonHandler:nil];
-    }else if (magnitud==6.0f){
-        [self level6ButtonHandler:nil];
-    }else if (magnitud==7.0f){
-        [self level7ButtonHandler:nil];
-    }else if (magnitud==8.0f){
-        [self level8ButtonHandler:nil];
+}
+
+-(void) magButtonLoadConfig{
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    NSString *magButton = [prefs stringForKey:@"magButton"];
+    NSLog(@"%@", magButton);
+    if ([magButton  isEqual: @"3"]) {
+        [self level3ButtonHandlerStart:nil];
+    }else if ([magButton  isEqual: @"4"]){
+        [self level4ButtonHandlerStart:nil];
+    }else if ([magButton  isEqual: @"5"]){
+        [self level5ButtonHandlerStart:nil];
+    }else if ([magButton  isEqual: @"6"]){
+        [self level6ButtonHandlerStart:nil];
+    }else if ([magButton  isEqual: @"7"]){
+        [self level7ButtonHandlerStart:nil];
     }else{
         lastButtonPressIndex=5;
     }
-    
-    
-    
+
 }
 
 -(void) SetSwitchPossition{
@@ -102,13 +105,14 @@
         if (changesMade == 1) {
             NSLog(@"hey ok we are ok");
             UIAlertView *alert = [[UIAlertView alloc]
-                                  initWithTitle:@"¿Gustas guardar tu nueva configuración?" message:nil delegate:self
-                                  cancelButtonTitle:@"NO" otherButtonTitles:@"OK", nil];
+                                  initWithTitle:@"¿Gusta guardar su nueva configuración?" message:nil delegate:self
+                                  cancelButtonTitle:@"NO" otherButtonTitles:@"SÍ", nil];
             [alert show];
         }
     } else {
         //<Do something since we're closing because of the back button>
     }
+
 }
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
@@ -139,15 +143,18 @@
     self.navigationItem.titleView = label;
     label.text = @"Configuración";//NSLocalizedString(@"PageThreeTitle", @"");
     [label sizeToFit];
-    UIBarButtonItem *saveButton = [[UIBarButtonItem alloc]
-                                   initWithBarButtonSystemItem:UIBarButtonSystemItemSave
-                                   target:self action:@selector(saveClicked:)];
+    UIBarButtonItem *saveButton = [[UIBarButtonItem alloc] initWithTitle:@"Guardar"
+                                   style:UIBarButtonItemStyleBordered
+                                target:self action:@selector(saveClicked)];
     self.navigationItem.rightBarButtonItem = saveButton;
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Atrás" style:UIBarButtonItemStylePlain target:nil action:nil];
 }
 
 -(void)saveAPIUserData{
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     NSString *userToken = [prefs stringForKey:@"token"];
+    NSString *sendMeNotif = [prefs stringForKey:@"userNotifications"];
+    NSLog(@"this is the user token: %@", userToken);
     NSString *magitudeSelected = [NSString stringWithFormat:@"%d", magSelected];
     //Sent PUT to API
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -155,13 +162,18 @@
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     [parameters setValue:userToken forKey:@"token"];
     [parameters setValue:magitudeSelected forKey:@"minMagnitude"];
-    [parameters setValue:sendMeNotifications forKey:@"notificationActive"];
+    [parameters setValue:sendMeNotif forKey:@"notificationActive"];
     [parameters setValue:@"iOS" forKey:@"os"];
+    NSString *magButton = magitudeSelected;
+    [prefs setObject:magButton forKey:@"magButton"];
+    [prefs synchronize];
     NSLog(@"%@", parameters);
     [manager PUT:@"http://rsnapi.herokuapp.com/api/devices/" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"JSON: %@", responseObject);
-        
-        
+        //UIAlertView *alert = [[UIAlertView alloc]
+          //                    initWithTitle:@"¡Configuración guardada!" message:nil delegate:nil
+            //                  cancelButtonTitle:nil otherButtonTitles:@"GRACIAS", nil];
+        //[alert show];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
@@ -170,13 +182,9 @@
                               cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
         [alert show];
     }];
-    UIAlertView *alert = [[UIAlertView alloc]
-                          initWithTitle:@"¡Configuración guardada!" message:nil delegate:nil
-                          cancelButtonTitle:nil otherButtonTitles:@"GRACIAS", nil];
-    [alert show];
 }
 
-- (IBAction)saveClicked:(id)sender {
+- (void)saveClicked{
     [self saveAPIUserData];
     changesMade=0;
 }
@@ -202,6 +210,7 @@
 }
 - (IBAction)level7ButtonHandler:(id)sender{
     [self unSelectLastPress];
+    
     //8
     [self.number8RedImageView setHidden:YES];
     [self.number8WhiteImageView setHidden:NO];
@@ -213,10 +222,12 @@
     
     [self.leyend7ImageView setHidden:NO];
     lastButtonPressIndex=7;
+    
 }
 - (IBAction)level6ButtonHandler:(id)sender{
     changesMade=1;
     magSelected=6;
+    
     [self unSelectLastPress];
     //8
     [self.number8RedImageView setHidden:YES];
@@ -232,6 +243,7 @@
     
     [self.leyend6ImageView setHidden:NO];
     lastButtonPressIndex=6;
+    //[self saveClicked];
     
 }
 - (IBAction)level5ButtonHandler:(id)sender{
@@ -257,6 +269,7 @@
     [self.leyend5ImageView setHidden:NO];
     
     lastButtonPressIndex=5;
+    //[self saveClicked];
 }
 - (IBAction)level4ButtonHandler:(id)sender{
     changesMade=1;
@@ -283,6 +296,7 @@
     [self.number4WhiteImageView setHidden:NO];
     
     lastButtonPressIndex=4;
+    //[self saveClicked];
 }
 - (IBAction)level3ButtonHandler:(id)sender{
     changesMade=1;
@@ -312,7 +326,125 @@
     [self.number3RedImageView setHidden:YES];
     [self.number3WhiteImageView setHidden:NO];
     lastButtonPressIndex=3;
+   // [self saveClicked];
 }
+- (IBAction)level3ButtonHandlerStart:(id)sender{
+    changesMade=1;
+    magSelected=3;
+    [self unSelectLastPress];
+    //8
+    [self.number8RedImageView setHidden:YES];
+    [self.number8WhiteImageView setHidden:NO];
+    
+    //7
+    [self.number7RedImageView setHidden:YES];
+    [self.number7WhiteImageView setHidden:NO];
+    
+    //6
+    [self.number6RedImageView setHidden:YES];
+    [self.number6WhiteImageView setHidden:NO];
+    
+    //5
+    [self.number5RedImageView setHidden:YES];
+    [self.number5WhiteImageView setHidden:NO];
+    
+    //4
+    [self.number4RedImageView setHidden:YES];
+    [self.number4WhiteImageView setHidden:NO];
+    
+    //3
+    [self.number3RedImageView setHidden:YES];
+    [self.number3WhiteImageView setHidden:NO];
+    lastButtonPressIndex=3;
+}
+- (IBAction)level7ButtonHandlerStart:(id)sender{
+    [self unSelectLastPress];
+    
+    //8
+    [self.number8RedImageView setHidden:YES];
+    [self.number8WhiteImageView setHidden:NO];
+    changesMade=1;
+    magSelected=7;
+    //7
+    [self.number7RedImageView setHidden:YES];
+    [self.number7WhiteImageView setHidden:NO];
+    
+    [self.leyend7ImageView setHidden:NO];
+    lastButtonPressIndex=7;
+}
+- (IBAction)level6ButtonHandlerStart:(id)sender{
+    changesMade=1;
+    magSelected=6;
+    
+    [self unSelectLastPress];
+    //8
+    [self.number8RedImageView setHidden:YES];
+    [self.number8WhiteImageView setHidden:NO];
+    
+    //7
+    [self.number7RedImageView setHidden:YES];
+    [self.number7WhiteImageView setHidden:NO];
+    
+    //6
+    [self.number6RedImageView setHidden:YES];
+    [self.number6WhiteImageView setHidden:NO];
+    
+    [self.leyend6ImageView setHidden:NO];
+    lastButtonPressIndex=6;
+    
+}
+- (IBAction)level5ButtonHandlerStart:(id)sender{
+    changesMade=1;
+    magSelected=5;
+    [self unSelectLastPress];
+    //8
+    [self.number8RedImageView setHidden:YES];
+    [self.number8WhiteImageView setHidden:NO];
+    
+    //7
+    [self.number7RedImageView setHidden:YES];
+    [self.number7WhiteImageView setHidden:NO];
+    
+    //6
+    [self.number6RedImageView setHidden:YES];
+    [self.number6WhiteImageView setHidden:NO];
+    
+    //5
+    [self.number5RedImageView setHidden:YES];
+    [self.number5WhiteImageView setHidden:NO];
+    
+    [self.leyend5ImageView setHidden:NO];
+    
+    lastButtonPressIndex=5;
+}
+- (IBAction)level4ButtonHandlerStart:(id)sender{
+    changesMade=1;
+    magSelected=4;
+    [self unSelectLastPress];
+    //8
+    [self.number8RedImageView setHidden:YES];
+    [self.number8WhiteImageView setHidden:NO];
+    
+    //7
+    [self.number7RedImageView setHidden:YES];
+    [self.number7WhiteImageView setHidden:NO];
+    
+    //6
+    [self.number6RedImageView setHidden:YES];
+    [self.number6WhiteImageView setHidden:NO];
+    
+    //5
+    [self.number5RedImageView setHidden:YES];
+    [self.number5WhiteImageView setHidden:NO];
+    
+    //4
+    [self.number4RedImageView setHidden:YES];
+    [self.number4WhiteImageView setHidden:NO];
+    
+    lastButtonPressIndex=4;
+}
+
+
 
 - (void) unSelectLastPress{
     
@@ -345,22 +477,15 @@
         sendMeNotifications = @YES;
         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
         // Storing an NSString:
-        NSString *userNotifications = @"true";
-        [prefs setObject:userNotifications forKey:@"userNotifications"];
+        [prefs setObject:sendMeNotifications forKey:@"userNotifications"];
         [prefs synchronize];
         [self saveAPIUserData];
     } else {
         sendMeNotifications = @NO;
         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-        // Storing an NSString:
-        NSString *userNotifications = @"false";
-        [prefs setObject:userNotifications forKey:@"userNotifications"];
+        [prefs setObject:sendMeNotifications forKey:@"userNotifications"];
         [prefs synchronize];
         [self saveAPIUserData];
-        UIAlertView *alert = [[UIAlertView alloc]
-                              initWithTitle:@"Notificaciones fueron desactivadas" message:nil delegate:nil
-                              cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
-        [alert show];
     }
 }
 
