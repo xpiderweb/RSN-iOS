@@ -8,6 +8,7 @@
 
 #import "DLSismoDetailViewController.h"
 #import "DLSismoVO.h"
+#import "DLUltimosSismosViewController.h"
 
 @interface DLSismoDetailViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
@@ -18,12 +19,13 @@
 @property (weak, nonatomic) IBOutlet UILabel *sismoTitleLabel;
 @property (strong, nonatomic) DLSismoVO *sismoData;
 @property (weak,nonatomic) IBOutlet UIWebView *webView;
+@property (nonatomic,strong) DLUltimosSismosViewController *sismosUltimosView;
 @end
 
 @implementation DLSismoDetailViewController
 
 @synthesize sismoData;
-@synthesize webView;
+@synthesize sismosUltimosView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -57,7 +59,6 @@
     [self.sismoTitleLabel setText:[NSString stringWithFormat:@"%@",self.sismoData.title]];
     
     NSString *hthmlFixed=[sismoData.contentHtml stringByReplacingOccurrencesOfString:@"<img" withString:@"<img style=\"width:255px\" "];
-	NSLog(@"content %@",hthmlFixed);
     [self.webView loadHTMLString:hthmlFixed baseURL:nil];
 }
 

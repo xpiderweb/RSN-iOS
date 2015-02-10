@@ -23,7 +23,7 @@
 
 @end
 
-@implementation DLSismosTableViewController 
+@implementation DLSismosTableViewController
 
 NSString* const DLSismosTableViewControllerItemSelected = @"DLSismosTableViewControllerItemSelected";
 
@@ -43,16 +43,9 @@ NSString* const DLSismosTableViewControllerItemSelected = @"DLSismosTableViewCon
     [super viewDidLoad];
     [self.tableView setDelegate:self];
     tableTitle = @"Últimos 10 sismos";
-
-}
-
-
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(didReceiveLastSismosWithNotification:) name:DLModelDidReceiveLastSismosForTableView object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(didReceiveLastSismosWithNotification:) name:DLModelDidReceiveLast10Sismos object:nil];
-    
 }
+
 
 -(void) viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
@@ -60,47 +53,49 @@ NSString* const DLSismosTableViewControllerItemSelected = @"DLSismosTableViewCon
 }
 
 -(void)didReceiveLastSismosWithNotification:(NSNotification*)notification{
-    
     //sismosArray = notification.object;
     NSMutableArray *temp = notification.object;
-    if (temp.count <10 && self.getToday) {
-        [[DLRSNModel sharedInstance]getLast10Sismos];
-        tableTitle = @"Últimos 10 sismos";
-        self.getToday= NO;
-    }else{
-        if (temp.count<10) {
-            tableTitle = @"Resultados de búsqueda";
+        switch (temp.count) {
+            case 0:{
+                NSLog(@"counting +1");
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Atención"
+                                                                message:@"No hay sismos para la fecha indicada."
+                                                               delegate:self
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil];
+                [alert show];
+            [[NSNotificationCenter defaultCenter]removeObserver:self];
+            }break;
+            default:{
+                if (temp.count < 10) {
+                    tableTitle = @"Resultados de búsqueda";
+                }
+            }break;
         }
         sismosArray = (NSMutableArray*)[self getSortedArray:temp];
-        [self.tableView reloadData];
-    }
     
-    
-    if (temp.count==0) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Atención"
-                                                        message:@"No se han encontrado sismos para la fecha indicada."
-                                                       delegate:self
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-        [alert show];
-    }
+    [self.tableView reloadData];
+}
+
+-(void) reloadTableData{
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(didReceiveLastSismosWithNotification:) name:DLModelDidReceiveLastSismosForTableView object:nil];
 }
 
 - (NSArray*) getSortedArray: (NSMutableArray*) unsortedArray{
-     NSComparisonResult (^sortBlock)(id, id) = ^(id obj1, id obj2) {
-         NSString* title1 = [obj1 title];
-         NSString* title2 = [obj2 title];
-         
-         if([title1 compare:title2] == NSOrderedAscending){
-             return (NSComparisonResult) NSOrderedDescending;
-         }
-         else if([title1 compare:title2] == NSOrderedDescending){
-             return (NSComparisonResult) NSOrderedAscending;
-         }else{
-             return (NSComparisonResult) NSOrderedSame;
-         }
-         
-     };
+    NSComparisonResult (^sortBlock)(id, id) = ^(id obj1, id obj2) {
+        NSString* title1 = [obj1 title];
+        NSString* title2 = [obj2 title];
+        
+        if([title1 compare:title2] == NSOrderedAscending){
+            return (NSComparisonResult) NSOrderedDescending;
+        }
+        else if([title1 compare:title2] == NSOrderedDescending){
+            return (NSComparisonResult) NSOrderedAscending;
+        }else{
+            return (NSComparisonResult) NSOrderedSame;
+        }
+        
+    };
     
     return unsortedArray; //[unsortedArray sortedArrayUsingComparator:sortBlock];
 }
@@ -162,11 +157,15 @@ NSString* const DLSismosTableViewControllerItemSelected = @"DLSismosTableViewCon
 }
 -(void)getSismosWithDateString: (NSString*)dateString{
     [[DLRSNModel sharedInstance]getSismosForTableViewWithDate:dateString];
-    
+}
+
+-(void) getLastTenSismos{
+    [[DLRSNModel sharedInstance]getLast10Sismos];
+    tableTitle = @"Últimos 10 sismos";
+    self.getToday= NO;
 }
 
 - (void) cleanTable{
     sismosArray= [[NSMutableArray alloc] init];
-    [self.tableView reloadData];
 }
 @end

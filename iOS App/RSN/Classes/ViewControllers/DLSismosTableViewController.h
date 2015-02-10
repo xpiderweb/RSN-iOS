@@ -19,9 +19,12 @@
 
 @property (nonatomic,weak) id<DLSismosTableViewControllerDelegate>delegate;
 @property (nonatomic,assign) BOOL getToday;
+@property (nonatomic,assign) BOOL noSismosResponse;
 
 extern NSString* const DLSismosTableViewControllerItemSelected;
 
+-(void) reloadTableData;
+-(void) getLastTenSismos;
 -(void)getSismosWithDateString: (NSString*)dateString;
 - (void) cleanTable;
 @end

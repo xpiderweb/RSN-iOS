@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="nFK-HT-KLO">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="nFK-HT-KLO">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -242,6 +242,9 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <state key="highlighted" image="check-button-over"/>
+                                <connections>
+                                    <action selector="checkButtonPressed" destination="poq-oN-Lw6" eventType="touchUpInside" id="Raf-hl-xcg"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -479,7 +482,7 @@
                                     <constraint firstAttribute="width" constant="170" id="haq-GM-bW6"/>
                                 </constraints>
                             </imageView>
-                            <button contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uzk-hQ-A5G">
+                            <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uzk-hQ-A5G">
                                 <rect key="frame" x="39" y="488" width="242" height="46"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="242" id="XWN-59-Spy"/>
@@ -494,7 +497,7 @@
                                     <action selector="suggestionsButtonPressed:" destination="HAs-wm-YrQ" eventType="touchUpInside" id="Xwu-oc-lSX"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="left" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KGY-oR-wdw">
+                            <button opaque="NO" contentMode="left" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KGY-oR-wdw">
                                 <rect key="frame" x="41" y="427" width="242" height="46"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="242" id="87K-oD-LH6"/>
@@ -510,11 +513,13 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="KGY-oR-wdw" firstAttribute="top" secondItem="uy0-G8-XhV" secondAttribute="bottom" constant="8" id="3Xm-xX-PsC"/>
                             <constraint firstItem="vZN-OP-JKP" firstAttribute="top" secondItem="pG3-0n-JyC" secondAttribute="bottom" constant="8" id="7MH-F6-LPX"/>
-                            <constraint firstItem="Uzk-hQ-A5G" firstAttribute="top" secondItem="KGY-oR-wdw" secondAttribute="bottom" constant="8" id="G9c-d0-KVg"/>
+                            <constraint firstAttribute="centerY" secondItem="KGY-oR-wdw" secondAttribute="centerY" constant="-166" id="Pft-aU-fLI"/>
                             <constraint firstItem="SMn-4b-4ig" firstAttribute="leading" secondItem="uam-U5-oxl" secondAttribute="leadingMargin" constant="50" id="YTR-jp-lis"/>
+                            <constraint firstItem="Uzk-hQ-A5G" firstAttribute="top" secondItem="KGY-oR-wdw" secondAttribute="bottom" constant="15" id="cSG-Z0-gUH"/>
                             <constraint firstItem="uy0-G8-XhV" firstAttribute="top" secondItem="vZN-OP-JKP" secondAttribute="bottom" constant="8" id="m36-FT-TLP"/>
+                            <constraint firstItem="KGY-oR-wdw" firstAttribute="leading" secondItem="uam-U5-oxl" secondAttribute="leadingMargin" constant="25" id="sEt-3o-9ZJ"/>
+                            <constraint firstItem="Uzk-hQ-A5G" firstAttribute="leading" secondItem="uam-U5-oxl" secondAttribute="leadingMargin" constant="23" id="ugl-dg-Phu"/>
                             <constraint firstItem="SMn-4b-4ig" firstAttribute="top" secondItem="pFc-oi-M0H" secondAttribute="bottom" constant="10" id="vy3-mJ-ud0"/>
                             <constraint firstItem="pG3-0n-JyC" firstAttribute="top" secondItem="SMn-4b-4ig" secondAttribute="bottom" constant="10" id="wP3-J8-o3p"/>
                             <constraint firstAttribute="trailingMargin" secondItem="SMn-4b-4ig" secondAttribute="trailing" constant="50" id="yp2-IH-SHh"/>

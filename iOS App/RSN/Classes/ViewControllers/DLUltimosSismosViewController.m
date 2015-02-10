@@ -10,6 +10,7 @@
 #import "DLSismosTableViewController.h"
 #import "DLCenterViewController.h"
 #import "DLMainViewController.h"
+#import "DLRSNModel.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface DLUltimosSismosViewController () <UIGestureRecognizerDelegate, UITextFieldDelegate>
@@ -72,7 +73,7 @@
     
     NSDateFormatter *minimunDateFormatter = [[NSDateFormatter alloc] init];
     [minimunDateFormatter setDateFormat:@"dd-MM-yyyy"];
-    NSString *minmunDateString = @"01-07-2012";
+    NSString *minmunDateString = @"01-09-2012";
     NSDate *dateFromString = [[NSDate alloc] init];
     dateFromString = [minimunDateFormatter dateFromString:minmunDateString];
     [datePicker setMinimumDate:dateFromString];
@@ -93,7 +94,34 @@
     [self.fechaTxt setInputView:datePicker];
     self.fechaTxt.layer.borderColor=[[UIColor colorWithRed:(208.0f/255.0f) green:(208.0f/255.0f) blue:(208.0f/255.0f) alpha:1.0f]CGColor];
     self.fechaTxt.layer.borderWidth= 1.0f;
+    [self setUpTableView];
     
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    [sismosTableViewController getLastTenSismos];
+}
+
+-(void) mapaButtonPressed{
+    [self.fechaTxt setText:@""];
+    if ([self.fechaTxt isFirstResponder]) {
+        [self.fechaTxt resignFirstResponder];
+        
+    }
+    [sismosTableViewController cleanTable];
+    [self setUpTableView];
+    [self.cancelButton setHidden:YES];
+    [self.doneButton setHidden:YES];
+    titleUltimosSismosLabel.text = @"Últimos 10 Sismos";
+}
+
+-(void)getSismosWithDateString{
+    [sismosTableViewController cleanTable];
+    [self updateTableWithDate:dateString];
+}
+
+
+-(void) setUpTableView{
     sismosTableViewController = [[DLSismosTableViewController alloc]init];
     if (isiPhone5) {
         [sismosTableViewController.view setFrame:CGRectMake(10, 180, 300, 380)];
@@ -101,38 +129,45 @@
         [sismosTableViewController.view setFrame:CGRectMake(10, 180, 300, 300)];
     }
     
-
+    
     [self addChildViewController:sismosTableViewController];
     [sismosTableViewController didMoveToParentViewController:self];
     
     [self.view insertSubview:sismosTableViewController.view belowSubview:self.doneButton];
     
     sismosTableViewController.getToday = YES;
-    [self updateTableWithDate:dateString];
+    [sismosTableViewController getLastTenSismos];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(dismissDatePicker:) name:DLMainViewControllerShowMenu object:nil];
+
 }
 
 
-- (void)dismissDate:(UIGestureRecognizer *)gestureRecognizer {
+- (IBAction)checkButtonPressed {
+    [sismosTableViewController cleanTable];
+    UIDatePicker *picker = (UIDatePicker*)self.fechaTxt.inputView;
+    dateString = [self formatDate:picker.date];
     [self.fechaTxt resignFirstResponder];
     [self.doneButton setHidden:YES];
-    [self updateTableWithDate:dateString];
     [self.cancelButton setHidden:NO];
     titleUltimosSismosLabel.text = @"Resultados de búsqueda";
+    [sismosTableViewController reloadTableData];
+    [self updateTableWithDate:dateString];
+}
+
+- (void)dismissDate:(UIGestureRecognizer *)gestureRecognizer {
+    
 }
 
 -(void)dismissDatePicker:(id)sender{
     [self.fechaTxt resignFirstResponder];
     [self.doneButton setHidden:YES];
-    
+    [self updateTableWithDate:dateString];
 }
 
 -(void)updateTextField:(id)sender{
     UIDatePicker *picker = (UIDatePicker*)self.fechaTxt.inputView;
     self.fechaTxt.text = [self formatDateForPresentation:picker.date];
     dateString = [self formatDate:picker.date];
-    
-    
 }
 
 - (NSString *)formatDate:(NSDate *)date{
@@ -158,6 +193,7 @@
 
 - (void) updateTableWithDate:(NSString*)date{
     [sismosTableViewController getSismosWithDateString:date];
+
     
 }
 
@@ -172,8 +208,7 @@
             
         }
         [sismosTableViewController cleanTable];
-        sismosTableViewController.getToday = YES;
-        [self updateTableWithDate:[self formatDate:[NSDate date]]];
+        [self setUpTableView];
         [self.cancelButton setHidden:YES];
         [self.doneButton setHidden:YES];
         titleUltimosSismosLabel.text = @"Últimos 10 Sismos";

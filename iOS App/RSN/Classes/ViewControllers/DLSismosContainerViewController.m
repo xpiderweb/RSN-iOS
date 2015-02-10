@@ -58,7 +58,7 @@
     self.navigationItem.titleView = label;
     label.text = @"Sismos Recientes";
     [label sizeToFit];
-     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Atrás" style:UIBarButtonItemStylePlain target:nil action:nil];
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Atrás" style:UIBarButtonItemStylePlain target:nil action:nil];
     sismosViewController  = [[self storyboard] instantiateViewControllerWithIdentifier:@"DLSismosViewController"];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(RefreshMap:)];
     [sismosViewController willMoveToParentViewController:self];
@@ -104,13 +104,12 @@
 }
 
 - (void)segmentedValueChanged:(id)sender{
-    LogInfo(@"estoy haciendo algo");
-    
     if (segmentedControl.selectedSegmentIndex == 0) {
         if (!isMapShowed) {
             [self.sismosUltimosListaController.view removeFromSuperview];
             [self.containerViewController addSubview:sismosViewController.view];
             isMapShowed = YES;
+            [sismosUltimosListaController mapaButtonPressed];
             
         }
         //[self.view addSubview:_centerViewController.leftButtonVIew];
@@ -119,7 +118,6 @@
             if(sismosUltimosListaController == nil){
                 sismosUltimosListaController = [[self storyboard] instantiateViewControllerWithIdentifier:@"DLUltimosSismosViewController"];
             }
-            NSLog(@"aqui me estaria escondiendo");
             [self.sismosViewController.view removeFromSuperview];
             [self.containerViewController addSubview:sismosUltimosListaController.view];
             isMapShowed = NO;

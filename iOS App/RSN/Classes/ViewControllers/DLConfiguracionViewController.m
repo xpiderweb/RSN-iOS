@@ -51,8 +51,8 @@
     sendNotifications = 1;
     changesMade = 0;
     [self setNavigationItemConfiguration];
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    float magnitud = [[defaults valueForKey:@"magnitud"]floatValue];
+    //SUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    //float magnitud = [[defaults valueForKey:@"magnitud"]floatValue];
     [self magButtonLoadConfig];
     
 }
@@ -80,8 +80,7 @@
 -(void) SetSwitchPossition{
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     NSString *userNotification = [prefs stringForKey:@"userNotifications"];
-    NSLog(@"%@", userNotification);
-    if ([userNotification  isEqual: @"true"]) {
+    if ([userNotification  isEqual: @"1"]) {
         [_notifSwitch setOn:YES];
     }else{
          [_notifSwitch setOn:NO];
@@ -153,8 +152,12 @@
 -(void)saveAPIUserData{
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     NSString *userToken = [prefs stringForKey:@"token"];
-    NSString *sendMeNotif = [prefs stringForKey:@"userNotifications"];
-    NSLog(@"this is the user token: %@", userToken);
+    NSNumber *userNotificationsValue;
+    NSString *userNotificationsString = [prefs stringForKey:@"userNotifications"];
+    NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
+    f.numberStyle = NSNumberFormatterDecimalStyle;
+    userNotificationsValue = [f numberFromString:userNotificationsString];
+    NSLog(@"this is the value %@", userNotificationsValue);
     NSString *magitudeSelected = [NSString stringWithFormat:@"%d", magSelected];
     //Sent PUT to API
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -162,7 +165,7 @@
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
     [parameters setValue:userToken forKey:@"token"];
     [parameters setValue:magitudeSelected forKey:@"minMagnitude"];
-    [parameters setValue:sendMeNotif forKey:@"notificationActive"];
+    [parameters setValue:userNotificationsValue forKey:@"notificationActive"];
     [parameters setValue:@"iOS" forKey:@"os"];
     NSString *magButton = magitudeSelected;
     [prefs setObject:magButton forKey:@"magButton"];

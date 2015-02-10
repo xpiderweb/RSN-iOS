@@ -10,4 +10,6 @@
 #import "DLSismosTableViewController.h"
 @interface DLUltimosSismosViewController : UIViewController
 -(void)addSismosTableViewControllerDelegate:(id)delegate;
+-(void)getSismosWithDateString;
+-(void) mapaButtonPressed;
 @end
