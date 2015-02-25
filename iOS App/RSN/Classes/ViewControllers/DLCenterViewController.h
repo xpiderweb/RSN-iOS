@@ -17,7 +17,6 @@
 
 @required
 - (void)movePanelToOriginalPosition;
--(void)btnMovePanelRight:(UIButton *)sender;
 
 @end
 
@@ -30,6 +29,7 @@
 
 -(void)changeCurrentViewControllerWithString:(NSString*)viewControllerName;
 - (void) enableAllViews:(BOOL) enable;
+-(void)btnMovePanelRight:(UIButton *)sender;
 
 
 

@@ -55,24 +55,23 @@ NSString* const DLSismosTableViewControllerItemSelected = @"DLSismosTableViewCon
 -(void)didReceiveLastSismosWithNotification:(NSNotification*)notification{
     //sismosArray = notification.object;
     NSMutableArray *temp = notification.object;
-        switch (temp.count) {
-            case 0:{
-                NSLog(@"counting +1");
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Atención"
-                                                                message:@"No hay sismos para la fecha indicada."
-                                                               delegate:self
-                                                      cancelButtonTitle:@"OK"
-                                                      otherButtonTitles:nil];
-                [alert show];
+    switch (temp.count) {
+        case 0:{
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Atención"
+                                                            message:@"No hay sismos para la fecha indicada."
+                                                           delegate:self
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+            [alert show];
             [[NSNotificationCenter defaultCenter]removeObserver:self];
-            }break;
-            default:{
-                if (temp.count < 10) {
-                    tableTitle = @"Resultados de búsqueda";
-                }
-            }break;
-        }
-        sismosArray = (NSMutableArray*)[self getSortedArray:temp];
+        }break;
+        default:{
+            if (temp.count < 10) {
+                tableTitle = @"Resultados de búsqueda";
+            }
+        }break;
+    }
+    sismosArray = (NSMutableArray*)[self getSortedArray:temp];
     
     [self.tableView reloadData];
 }
@@ -97,7 +96,8 @@ NSString* const DLSismosTableViewControllerItemSelected = @"DLSismosTableViewCon
         
     };
     
-    return unsortedArray; //[unsortedArray sortedArrayUsingComparator:sortBlock];
+    return unsortedArray;
+    [unsortedArray sortedArrayUsingComparator:sortBlock];
 }
 #pragma mark - Table view data source
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -154,6 +154,8 @@ NSString* const DLSismosTableViewControllerItemSelected = @"DLSismosTableViewCon
     DLSismoVO *sismoVO = [sismosArray objectAtIndex:indexPath.row];
     NSNotification *notification = [NSNotification notificationWithName:DLSismosTableViewControllerItemSelected object:sismoVO];
     [[NSNotificationCenter defaultCenter]postNotification:notification];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
 }
 -(void)getSismosWithDateString: (NSString*)dateString{
     [[DLRSNModel sharedInstance]getSismosForTableViewWithDate:dateString];

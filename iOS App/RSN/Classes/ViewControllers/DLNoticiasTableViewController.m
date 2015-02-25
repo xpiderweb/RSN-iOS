@@ -140,15 +140,6 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    
-    if (self.navigationController.visibleViewController != self) {
-        //<Do something since we're closing using something else>
-        NSLog(@"ok we pressed or somehting else");
-       // _centerViewController.showMenuButton = TRUE;
-    } else {
-        //<Do something since we're closing because of the back button>
-        NSLog(@"ok we pressed back");
-    }
 }
 
 @end

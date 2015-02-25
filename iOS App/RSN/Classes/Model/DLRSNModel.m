@@ -47,12 +47,10 @@ NSString * const DLModelDidReceiveLastNoticias = @"DLModelDidReceiveLastNoticias
     //[manager GET:@"http://localhost/RSN-Server/seismics.php" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
     NSString *urlString = [NSString stringWithFormat:@"%@/seismics.php",SERVER_URL];
     [manager GET:urlString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
-        NSLog(@"JSON: %@", responseObject);
+       
         //[self.delegate didReceiveLastSismosWithString:responseObject];
         NSDictionary *info = (NSDictionary*)responseObject;
-        NSLog(@"%@", info);
-        
+ 
         NSMutableArray *sismosArray = [[NSMutableArray alloc]init];
         for (NSDictionary * row in info) {
             DLNoticiaVO *noticiaVO = [[DLNoticiaVO alloc]init];
@@ -62,7 +60,6 @@ NSString * const DLModelDidReceiveLastNoticias = @"DLModelDidReceiveLastNoticias
             
             //Content
             [noticiaVO setContentHTML:[row objectForKey:@"introtext"]];
-            NSLog(@"HTML =%@",noticiaVO.contentHTML);
             [sismosArray addObject:noticiaVO];
         }
         
@@ -129,7 +126,6 @@ NSString * const DLModelDidReceiveLastNoticias = @"DLModelDidReceiveLastNoticias
     //NSString *urlString = [NSString stringWithFormat:@"%@/seismics.php",SERVER_URL];
     NSString *urlString = [NSString stringWithFormat:@"http://rsnapi.herokuapp.com:80/api/seisms/getLastDaySeisms"];
     [manager.requestSerializer setValue:@"547406e0fa85847666283b61" forHTTPHeaderField:@"Api-key"];
-    
     [manager GET:urlString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSDictionary *info1 = (NSDictionary*)responseObject;
         NSDictionary *info = info1[@"seisms"];
@@ -146,6 +142,7 @@ NSString * const DLModelDidReceiveLastNoticias = @"DLModelDidReceiveLastNoticias
     NSArray *keys = [[NSArray alloc] initWithObjects:@"action",@"date", nil];
     NSArray *values = [[NSArray alloc] initWithObjects:@"lastSismosByDate",dateString, nil];
     NSDictionary *parameters = [[NSDictionary alloc]initWithObjects:values forKeys:keys];
+    NSLog(@"%@", parameters);
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
     //[manager GET:@"http://localhost/RSN-Server/seismics.php" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -154,6 +151,7 @@ NSString * const DLModelDidReceiveLastNoticias = @"DLModelDidReceiveLastNoticias
     [manager GET:urlString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         NSDictionary *responseDic = (NSDictionary*)responseObject;
+        NSLog(@"%@", responseObject);
         NSDictionary *info = [(NSDictionary*) responseDic objectForKey:@"seisms"];
         NSMutableArray *sismos = [[NSMutableArray alloc]init];
         
@@ -163,6 +161,7 @@ NSString * const DLModelDidReceiveLastNoticias = @"DLModelDidReceiveLastNoticias
             [sismoVO setContentHtml:[row objectForKey:@"introtext"]];
             [sismos addObject:sismoVO];
         }
+        
         
         NSNotification *notification = [NSNotification notificationWithName:DLModelDidReceiveLastSismosForTableView object:sismos];
         [[NSNotificationCenter defaultCenter]postNotification:notification];

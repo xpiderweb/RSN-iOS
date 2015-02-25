@@ -202,21 +202,16 @@
     }
     
     NSDictionary * root = (NSDictionary*)[notification userInfo];
-    NSLog(@"%@", root);
     BOOL firstPin = YES;
     for (NSDictionary * row in root) {
         
-        NSLog(@"%@", row);
         NSString * address = [row objectForKey:@"description"];
-        NSLog(@"%@", address);
         float size = [[row objectForKey:@"magnitude"]floatValue];
         NSDictionary *location = row[@"location"];
         NSNumber * latitude = (NSNumber*)[location objectForKey:@"lat"];
         NSNumber * longitude = (NSNumber*)[location objectForKey:@"lng"];
-        NSLog(@"%@ y %@", latitude, longitude);
         //Time
         NSString *time = [row objectForKey:@"time"];
-        NSLog(@"%@", time);
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
         [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"];
@@ -228,10 +223,7 @@
         [df_utc setDateFormat:@"dd-MM-yyyy h:mm a"];
         
         NSString* ts_utc_string = [df_utc stringFromDate:dateFromString];
-        NSLog(@"%@", ts_utc_string);
         time = ts_utc_string;
-        
-        NSLog(@"Formated time %@", time);
         int color = 0;
         if(firstPin){
             
@@ -312,8 +304,6 @@
         [sismosLengend.view setFrame:CGRectMake(295, 210, 205, 123)];
         [UIView commitAnimations];
         self.isLegendHidden = YES;
-    }else{
-        NSLog(@"Nothing To do");
     }
 }
 

@@ -37,6 +37,4 @@ extern NSString * const DLModelDidReceiveLast10Sismos;
 -(void)getLastNoticias;
 -(void)getLast10Sismos;
 -(void)getSismosForTableViewWithDate:(NSString*)dateString;
--(void)updateTokenAPNSWithToken:(NSString*)tokenAPNS andId:(NSString*)idToken;
--(void)updateMagnitudAPNSWithMagnitud:(NSString*)magnitud andId:(NSString*)idToken;
 @end

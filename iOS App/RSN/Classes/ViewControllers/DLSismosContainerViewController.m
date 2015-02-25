@@ -48,7 +48,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NSLog(@"viewDidLoad");
     // Do any additional setup after loading the view.
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero] ;
     label.backgroundColor = [UIColor clearColor];
@@ -83,11 +82,6 @@
 
 - (void) disableMapView:(BOOL)enable{
     if (self.sismosViewController.view !=nil) {
-        if (enable) {
-            NSLog(@"Enable");
-        }else{
-            NSLog(@"Disable");
-        }
         self.sismosViewController.view.userInteractionEnabled = enable;
     }
 }

@@ -12,7 +12,6 @@
 @property (strong, nonatomic) IBOutlet UIButton *leftButtonMenu;
 -(void)resetMainView;
 extern NSString * const DLMainViewControllerShowMenu;
--(void)movePanelRight;
 -(void)movePanelToOriginalPosition;
 
 @end

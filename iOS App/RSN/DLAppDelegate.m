@@ -53,7 +53,6 @@ int appBadge;
 }
 - (void)registerForRemoteNotification {
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO( _iOS_8_0) ) {
-        NSLog(@"I shoul be in ios 8");
         UIUserNotificationSettings* notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound categories:nil];
         [[UIApplication sharedApplication] registerUserNotificationSettings:notificationSettings];
         [[UIApplication sharedApplication] registerForRemoteNotifications];
@@ -63,7 +62,6 @@ int appBadge;
         [prefs synchronize];
         
     }else{
-        NSLog(@"is this working cause this is io7");
         [[UIApplication sharedApplication] registerForRemoteNotificationTypes: (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
         NSString *magButton = @"3";
@@ -71,11 +69,6 @@ int appBadge;
         [prefs synchronize];
     }
     
-    /*
-     UIUserNotificationType types = UIUserNotificationTypeSound | UIUserNotificationTypeBadge | UIUserNotificationTypeAlert;
-     UIUserNotificationSettings *notificationSettings = [UIUserNotificationSettings settingsForTypes:types categories:nil];
-     [[UIApplication sharedApplication] registerUserNotificationSettings:notificationSettings];
-     */
 }
 
 #ifdef __IPHONE_8_0
@@ -96,7 +89,6 @@ int appBadge;
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     NSString *token = [[deviceToken description] stringByTrimmingCharactersInSet: [NSCharacterSet characterSetWithCharactersInString:@"<>"]];
     token = [token stringByReplacingOccurrencesOfString:@" " withString:@""];
-    NSLog(@"Did Register for Remote Notifications with Device Token (%@)", token);
     NSNumber* sendMeNotifications = @YES;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager.requestSerializer setValue:@"547406e0fa85847666283b61" forHTTPHeaderField:@"Api-key"];
@@ -105,9 +97,7 @@ int appBadge;
     [parameters setValue:@"3" forKey:@"minMagnitude"];
     [parameters setValue: sendMeNotifications forKey:@"notificationActive"];
     [parameters setValue:@"iOS" forKey:@"os"];
-    NSLog(@"%@", parameters);
     [manager POST:@"http://rsnapi.herokuapp.com/api/devices/" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"JSON: %@", responseObject);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
     }];
@@ -128,7 +118,6 @@ int appBadge;
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
-    NSLog(@"Did Fail to Register for Remote Notifications");
     NSLog(@"%@, %@", error, error.localizedDescription);
     
 }
@@ -152,7 +141,6 @@ int appBadge;
 //Your app receives push notification.
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
-    NSLog(@"got a push");
     if ([[UIApplication sharedApplication] applicationState] == UIApplicationStateBackground){
         application.applicationIconBadgeNumber = 1;
         [self pushLocalNotificationWithString:[NSString stringWithFormat:@"RSN Reporta:\n%@",[[userInfo objectForKey:@"aps"] objectForKey:@"alert"]]];

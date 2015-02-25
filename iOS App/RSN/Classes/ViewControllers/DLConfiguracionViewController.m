@@ -60,7 +60,6 @@
 -(void) magButtonLoadConfig{
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     NSString *magButton = [prefs stringForKey:@"magButton"];
-    NSLog(@"%@", magButton);
     if ([magButton  isEqual: @"3"]) {
         [self level3ButtonHandlerStart:nil];
     }else if ([magButton  isEqual: @"4"]){
@@ -74,7 +73,7 @@
     }else{
         lastButtonPressIndex=5;
     }
-
+    
 }
 
 -(void) SetSwitchPossition{
@@ -83,7 +82,7 @@
     if ([userNotification  isEqual: @"1"]) {
         [_notifSwitch setOn:YES];
     }else{
-         [_notifSwitch setOn:NO];
+        [_notifSwitch setOn:NO];
     }
 }
 
@@ -100,9 +99,7 @@
     
     if (self.navigationController.visibleViewController != self) {
         //<Do something since we're closing using something else>
-        NSLog(@"ok we pressed or somehting else");
         if (changesMade == 1) {
-            NSLog(@"hey ok we are ok");
             UIAlertView *alert = [[UIAlertView alloc]
                                   initWithTitle:@"¿Gusta guardar su nueva configuración?" message:nil delegate:self
                                   cancelButtonTitle:@"NO" otherButtonTitles:@"SÍ", nil];
@@ -111,19 +108,13 @@
     } else {
         //<Do something since we're closing because of the back button>
     }
-
+    
 }
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex == 0)
-    {
-        //Code for OK button
-        NSLog(@"I cancelled");
-    }
     if (buttonIndex == 1)
     {
         //Code for download button
-        NSLog(@"Save me");
         [self saveAPIUserData];
     }
 }
@@ -143,8 +134,8 @@
     label.text = @"Configuración";//NSLocalizedString(@"PageThreeTitle", @"");
     [label sizeToFit];
     UIBarButtonItem *saveButton = [[UIBarButtonItem alloc] initWithTitle:@"Guardar"
-                                   style:UIBarButtonItemStyleBordered
-                                target:self action:@selector(saveClicked)];
+                                                                   style:UIBarButtonItemStyleBordered
+                                                                  target:self action:@selector(saveClicked)];
     self.navigationItem.rightBarButtonItem = saveButton;
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Atrás" style:UIBarButtonItemStylePlain target:nil action:nil];
 }
@@ -157,7 +148,6 @@
     NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
     f.numberStyle = NSNumberFormatterDecimalStyle;
     userNotificationsValue = [f numberFromString:userNotificationsString];
-    NSLog(@"this is the value %@", userNotificationsValue);
     NSString *magitudeSelected = [NSString stringWithFormat:@"%d", magSelected];
     //Sent PUT to API
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -170,16 +160,9 @@
     NSString *magButton = magitudeSelected;
     [prefs setObject:magButton forKey:@"magButton"];
     [prefs synchronize];
-    NSLog(@"%@", parameters);
     [manager PUT:@"http://rsnapi.herokuapp.com/api/devices/" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"JSON: %@", responseObject);
-        //UIAlertView *alert = [[UIAlertView alloc]
-          //                    initWithTitle:@"¡Configuración guardada!" message:nil delegate:nil
-            //                  cancelButtonTitle:nil otherButtonTitles:@"GRACIAS", nil];
-        //[alert show];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@", error);
         UIAlertView *alert = [[UIAlertView alloc]
                               initWithTitle:@"Ocurio un Error" message:nil delegate:nil
                               cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
@@ -329,7 +312,7 @@
     [self.number3RedImageView setHidden:YES];
     [self.number3WhiteImageView setHidden:NO];
     lastButtonPressIndex=3;
-   // [self saveClicked];
+    // [self saveClicked];
 }
 - (IBAction)level3ButtonHandlerStart:(id)sender{
     changesMade=1;

@@ -50,18 +50,7 @@ NSString * const DLMainViewControllerShowMenu = @"DLMainViewControllerShowMenu";
 - (void)viewDidLoad{
     [super viewDidLoad];
     [self setupView];
-    
-    //    [[NSNotificationCenter defaultCenter] addObserver:self
-    //                                             selector:@selector(receiveViewIsShowNotification:)
-    //                                                 name:@"ViewIsShowNotification"
-    //                                               object:nil];
 }
-
-//- (void) receiveViewIsShowNotification:(NSNotification *) notification{
-//    [self.centerViewController.currentShowViewController.view setUserInteractionEnabled:YES];
-//    [self.centerViewController.currentShowViewController.navigationController.navigationBar setUserInteractionEnabled:YES];
-//}
-
 
 #pragma mark - Setup View
 -(void)setupView {
@@ -106,12 +95,6 @@ NSString * const DLMainViewControllerShowMenu = @"DLMainViewControllerShowMenu";
         _centerViewController.leftButton.tag = 1;
         
         self.showingLeftPanel = NO;
-        
-        /*[self.centerViewController.currentShowViewController.view setUserInteractionEnabled:YES];
-         
-         self.centerViewController.currentShowViewController.navigationItem.leftBarButtonItem.enabled= YES;
-         
-         [self.centerViewController.currentShowViewController.navigationController.navigationBar setUserInteractionEnabled:YES];*/
         
         [self.centerViewController enableAllViews:YES];
     }
@@ -197,12 +180,6 @@ NSString * const DLMainViewControllerShowMenu = @"DLMainViewControllerShowMenu";
     
     if([(UIPanGestureRecognizer*)sender state] == UIGestureRecognizerStateEnded) {
         
-        if(velocity.x > 0) {
-            // NSLog(@"gesture went right");
-        } else {
-            // NSLog(@"gesture went left");
-        }
-        
         if (!_showPanel) {
             [self movePanelToOriginalPosition];
         } else {
@@ -215,14 +192,11 @@ NSString * const DLMainViewControllerShowMenu = @"DLMainViewControllerShowMenu";
     }
     
     if([(UIPanGestureRecognizer*)sender state] == UIGestureRecognizerStateChanged) {
-        //NSLog(@"Gesture velocity: %f",velocity.x);
+        
         UIView *viewPanel = _centerViewController.view;
         if(velocity.x > 0) {
-            //NSLog(@"gesture went right");
         } else {
-            // NSLog(@"gesture went left");
-            // viewPanel = _rightPanelViewController.view;
-            // are we more than halfway, if so, show the panel when done dragging by setting this value to YES (1)
+            
             _showPanel = abs([sender view].center.x - _centerViewController.view.frame.size.width/2) < _centerViewController.view.frame.size.width/2;
             
             // allow dragging only in x coordinates by only updating the x coordinate with translation position
@@ -233,12 +207,6 @@ NSString * const DLMainViewControllerShowMenu = @"DLMainViewControllerShowMenu";
             [(UIPanGestureRecognizer*)sender setTranslation:CGPointMake(0,0) inView:self.view];
             
             // if you needed to check for a change in direction, you could use this code to do so
-            if(velocity.x*_preVelocity.x + velocity.y*_preVelocity.y > 0) {
-                // NSLog(@"same direction");
-            } else {
-                // NSLog(@"opposite direction");
-            }
-            
             _preVelocity = velocity;
         }
         
@@ -248,84 +216,8 @@ NSString * const DLMainViewControllerShowMenu = @"DLMainViewControllerShowMenu";
 -(void)movePanel:(id)sender {
     
     [[[(UITapGestureRecognizer*)sender view] layer] removeAllAnimations];
-    /*
-    CGPoint translatedPoint = [(UIPanGestureRecognizer*)sender translationInView:self.view];
-    CGPoint velocity = [(UIPanGestureRecognizer*)sender velocityInView:[sender view]];
-    
-    if([(UIPanGestureRecognizer*)sender state] == UIGestureRecognizerStateBegan) {
-        UIView *childView = nil;
-        
-        if(velocity.x > 0) {
-            if (!_showingRightPanel) {
-                childView = [self getLeftView];
-            }
-        } else {
-            if (!_showingLeftPanel) {
-                // childView = [self getRightView];
-            }
-            
-        }
-        // make sure the view we're working with is front and center
-        //[self.view sendSubviewToBack:childView];
-        [[sender view] bringSubviewToFront:[(UIPanGestureRecognizer*)sender view]];
-    }
-    
-    
-    if([(UIPanGestureRecognizer*)sender state] == UIGestureRecognizerStateEnded) {
-        
-        if(velocity.x > 0) {
-            NSLog(@"gesture went right");
-        } else {
-            // NSLog(@"gesture went left");
-            //NOTE el gesture hace el center panel hacia la izquierda
-            [self movePanelToOriginalPosition];
-        }
-        
-        if (!_showPanel) {
-            [self movePanelToOriginalPosition];
-        } else {
-            if (_showingLeftPanel) {
-                [self movePanelRight];
-            }  else if (_showingRightPanel) {
-                [self movePanelLeft];
-            }
-        }
-    }
-    
-    if([(UIPanGestureRecognizer*)sender state] == UIGestureRecognizerStateChanged) {
-        UIView *viewPanel = _leftPanelViewController.view;
-        if(velocity.x > 0) {
-            //NSLog(@"gesture went right");
-        } else {
-            NSLog(@"gesture went left");
-            if (!_showingLeftPanel)
-                return;
-            
-            
-            // viewPanel = _rightPanelViewController.view;
-        }
-        
-        // are we more than halfway, if so, show the panel when done dragging by setting this value to YES (1)
-        _showPanel = abs([sender view].center.x - _centerViewController.view.frame.size.width/2) > _centerViewController.view.frame.size.width/2;
-        
-        // allow dragging only in x coordinates by only updating the x coordinate with translation position
-        [sender view].center = CGPointMake([sender view].center.x + translatedPoint.x, [sender view].center.y);
-        [(UIPanGestureRecognizer*)sender setTranslation:CGPointMake(0,0) inView:self.view];
-        
-        viewPanel.center = CGPointMake(viewPanel.center.x + translatedPoint.x, viewPanel.center.y);
-        [(UIPanGestureRecognizer*)sender setTranslation:CGPointMake(0,0) inView:self.view];
-        
-        // if you needed to check for a change in direction, you could use this code to do so
-        if(velocity.x*_preVelocity.x + velocity.y*_preVelocity.y > 0) {
-            // NSLog(@"same direction");
-        } else {
-            // NSLog(@"opposite direction");
-        }
-        
-        _preVelocity = velocity;
-    }*/
-    
 }
+
 -(void)movePanelToOriginalPosition {
     [UIView animateWithDuration:SLIDE_TIMING delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
         _centerViewController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
@@ -347,7 +239,7 @@ NSString * const DLMainViewControllerShowMenu = @"DLMainViewControllerShowMenu";
 -(void)movePanelRight {
     [[NSNotificationCenter defaultCenter] postNotificationName:DLMainViewControllerShowMenu object:nil userInfo:nil];
     UIView *childView = [self getLeftView];
-   [self.view sendSubviewToBack:childView];
+    [self.view sendSubviewToBack:childView];
     
     [UIView animateWithDuration:SLIDE_TIMING delay:0.1 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
         
