@@ -13,6 +13,7 @@
 #import "DLCenterViewController.h"
 #define METERS_PER_MILE 1609
 
+
 @interface DLSismosViewController ()
 @property (nonatomic, assign) BOOL legendOpen;
 
@@ -49,13 +50,14 @@
 - (void)viewDidLoad{
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(didReceiveLastSismosWithNotification:) name:DLModelDidReceiveLastSismos object:nil];
+    self.annotationsArray = [[NSMutableArray alloc] init];
     
     [[DLRSNModel sharedInstance]getLastSismos];
     _legendOpen = FALSE;
     _showMennu = FALSE;
     _animationWait.hidden = FALSE;
     [_animationWait startAnimating];
-    
+    self.noSismoAlertShown = false;
     //Create legend view controller
     sismosLengend  = [[self storyboard]instantiateViewControllerWithIdentifier:@"DLSismosLegendViewController"];
     [sismosLengend setDelegate:self];
@@ -109,27 +111,7 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    CLGeocoder *geoCode = [[CLGeocoder alloc] init];
-    [geoCode geocodeAddressString:@"Costa Rica" completionHandler:^(NSArray *placemarks, NSError *error) {
-        if (!error) {
-            CLPlacemark *place = [placemarks objectAtIndex:0];
-            CLLocation *location = place.location;
-            CLLocationCoordinate2D coord = location.coordinate;
-            
-            MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(coord, 160*METERS_PER_MILE, 260*METERS_PER_MILE);
-            
-            MKCoordinateRegion adjustedRegion = [_mapView regionThatFits:viewRegion];
-            [_mapView setRegion:adjustedRegion animated:YES];
-            [_mapView setDelegate:self];
-            _mapView.mapType = MKMapTypeStandard;
-        }
-        
-        
-    }];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(RefreshMap)
-                                                 name:UIApplicationDidBecomeActiveNotification object:nil];
+
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -175,18 +157,6 @@
     
 }
 
--(void) RefreshMap {
-    
-    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        
-        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(didReceiveLastSismosWithNotification:) name:DLModelDidReceiveLastSismos object:nil];
-        
-        [[DLRSNModel sharedInstance]getLastSismos];
-        
-    });
-    
-}
-
 #pragma DLRSNModel Protocol
 
 -(void)didReceiveLastSismosWithNotification:(NSNotification*)notification{
@@ -197,106 +167,107 @@
         // [foo showMenuButtonBool];
     }
     _showMennu = TRUE;
-    for (id<MKAnnotation> annotation in _mapView.annotations) {
-        [_mapView removeAnnotation:annotation];
-    }
-    
+    [self.annotationsArray removeAllObjects];
     NSDictionary * root = (NSDictionary*)[notification userInfo];
-    BOOL firstPin = YES;
-    for (NSDictionary * row in root) {
+    BOOL isEmpty = ([root count] == 0);
+    [self.googleMapView clear];
+    if (isEmpty ) {
+        GMSCameraPosition *setLocation = [GMSCameraPosition cameraWithLatitude:10.238
+                                                                     longitude:-84.125
+                                                                          zoom:8];
+        [self.googleMapView setCamera:setLocation];
+        if (!self.noSismoAlertShown) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Hoy no se han detectado sismos."
+                                                            message:@""
+                                                           delegate:self
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+            [alert show];
+            self.noSismoAlertShown = true;
+        }
+    }else{
         
-        NSString * address = [row objectForKey:@"description"];
-        float size = [[row objectForKey:@"magnitude"]floatValue];
-        NSDictionary *location = row[@"location"];
-        NSNumber * latitude = (NSNumber*)[location objectForKey:@"lat"];
-        NSNumber * longitude = (NSNumber*)[location objectForKey:@"lng"];
-        //Time
-        NSString *time = [row objectForKey:@"time"];
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
-        [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"];
-        NSDate *dateFromString = [[NSDate alloc] init];
-        dateFromString = [dateFormatter dateFromString:time];
-        
-        NSDateFormatter* df_utc = [[NSDateFormatter alloc] init];
-        [df_utc setTimeZone:[NSTimeZone timeZoneWithName:@"GTM"]];
-        [df_utc setDateFormat:@"dd-MM-yyyy h:mm a"];
-        
-        NSString* ts_utc_string = [df_utc stringFromDate:dateFromString];
-        time = ts_utc_string;
-        int color = 0;
-        if(firstPin){
+        BOOL firstPin = YES;
+        for (NSDictionary * row in root) {
             
-            firstPin = NO;
-            if(size >= 0 && size < 3.5){
-                color = 4;
+            NSString * address = [row objectForKey:@"description"];
+            float size = [[row objectForKey:@"magnitude"]floatValue];
+            NSDictionary *location = row[@"location"];
+            NSNumber * latitude = (NSNumber*)[location objectForKey:@"lat"];
+            NSNumber * longitude = (NSNumber*)[location objectForKey:@"lng"];
+            //Time
+            NSString *time = [row objectForKey:@"time"];
+            NSLocale *posixLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
+            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+            [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+            [dateFormatter setLocale: posixLocale];
+            [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"];
+            NSDate *dateFromString = [[NSDate alloc] init];
+            dateFromString = [dateFormatter dateFromString:time];
+            // dateFromString= [dateFromString dateByAddingTimeInterval:-3600*6];
+            
+            NSDateFormatter* df_utc = [[NSDateFormatter alloc] init];
+            [df_utc setLocale: posixLocale];
+            [df_utc setDateFormat:@"dd-MM-yyyy h:mm a"];
+            
+            NSString* ts_utc_string = [df_utc stringFromDate:dateFromString];
+            time = ts_utc_string;
+            NSLog(@"%@", time);
+            int color = 0;
+            if(firstPin){
+                if(size >= 0 && size < 3.5){
+                    color = 4;
+                }else if(size >= 3.5 && size < 5){
+                    color = 5;
+                }else if(size >= 5){
+                    color = 6;
+                }
+            }else if(size >= 0 && size < 3.5){
+                color = 1;
+                
             }else if(size >= 3.5 && size < 5){
-                color = 5;
+                color = 2;
+                
             }else if(size >= 5){
-                color = 6;
+                color = 3;
+                
             }
-        }else if(size >= 0 && size < 3.5){
-            color = 1;
+           
+            // Creates a marker in the center of the map.
+            GMSMarker *marker = [[GMSMarker alloc] init];
+            marker.position = CLLocationCoordinate2DMake(latitude.doubleValue, longitude.doubleValue);
+            marker.title = [NSString stringWithFormat:@"%.1f Mw / %@ UTC",size,time];
+            marker.snippet = address;
+            if(color == 1){
+                marker.icon = [UIImage imageNamed:@"greenIcon"];
+            }else if(color == 2){
+                marker.icon = [UIImage imageNamed:@"orangeIcon"];
+            }else if(color == 3){
+                marker.icon = [UIImage imageNamed:@"redIcon"];
+            }else if(color == 4){
+                marker.icon = [UIImage imageNamed:@"greenStar"];
+            }else if(color == 5){
+                marker.icon = [UIImage imageNamed:@"orangeStar"];
+            }else if(color == 6){
+                marker.icon = [UIImage imageNamed:@"redStar"];
+            }
+            marker.map =  self.googleMapView;
             
-        }else if(size >= 3.5 && size < 5){
-            color = 2;
-            
-        }else if(size >= 5){
-            color = 3;
+            if (firstPin) {
+                firstPin = NO;
+                GMSCameraPosition *setLocation = [GMSCameraPosition cameraWithLatitude:latitude.doubleValue
+                                                                             longitude:longitude.doubleValue
+                                                                            zoom:8.15];
+                [self.googleMapView setCamera:setLocation];
+                [self.googleMapView setSelectedMarker:marker];
+            }
+
             
         }
-        
-        CLLocationCoordinate2D coordinate;
-        coordinate.latitude = latitude.doubleValue;
-        coordinate.longitude = longitude.doubleValue;
-        DLMyLocation *annotation = [[DLMyLocation alloc] initWithSize:[NSString stringWithFormat:@"%.1f Mw / %@",size,time] address:address coordinate:coordinate];
-        [annotation setColor:color];
-        [annotation setAddress: address];
-        [_mapView addAnnotation:annotation];
-        if(annotation.color >= 4){
-            [_mapView selectAnnotation:annotation animated:YES];
-        }
+
     }
 }
 
-#pragma MapKitProtocol
-- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation{
-    DLMyLocation *myLocation = annotation;
-    NSString *identifier = [NSString stringWithFormat:@"DLMyLocationRsn%d",myLocation.color];
-    
-    if ([annotation isKindOfClass:[DLMyLocation class]]) {
-        
-        MKPinAnnotationView *annotationView = (MKPinAnnotationView *) [_mapView dequeueReusableAnnotationViewWithIdentifier:identifier];
-        if (annotationView == nil) {
-            annotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:identifier];
-        } else {
-            annotationView.annotation = annotation;
-        }
-        
-        annotationView.enabled = YES;
-        annotationView.canShowCallout = YES;
-        //DLMyLocation *myLocation = annotation;
-        if(myLocation.color == 1){
-            annotationView.pinColor = MKPinAnnotationColorGreen;
-        }else if(myLocation.color == 2){
-            annotationView.image = [UIImage imageNamed:@"RSN-Map-pinOrange"];
-        }else if(myLocation.color == 3){
-            annotationView.pinColor = MKPinAnnotationColorRed;
-        }else if(myLocation.color == 4){
-            annotationView.image = [UIImage imageNamed:@"RSN-Map-pinStarGreen"];
-        }else if(myLocation.color == 5){
-            annotationView.image = [UIImage imageNamed:@"RSN-Map-pinStarOrange"];
-        }else if(myLocation.color == 6){
-            annotationView.image = [UIImage imageNamed:@"RSN-Map-pinStarRed"];
-        }
-        
-        //        annotationView.image=[UIImage imageNamed:@"arrest.png"];//here we use a nice image instead of the default pins
-        
-        return annotationView;
-    }
-    
-    return nil;
-}
 - (IBAction)tapToHide:(id)sender {
     if (_legendOpen == TRUE) {
         [UIView beginAnimations:@"hideLegend" context:nil];

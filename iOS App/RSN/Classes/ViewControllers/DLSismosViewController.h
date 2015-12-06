@@ -9,14 +9,16 @@
 #import <UIKit/UIKit.h>
 #import "DLSismosLegendViewController.h"
 #import "DLRSNModel.h"
-#import <MapKit/MapKit.h>
 #import "DLMainViewController.h"
+#import <GoogleMaps/GoogleMaps.h>
 
-@interface DLSismosViewController : UIViewController<DLSismosLegendViewControllerDelegate,MKMapViewDelegate>
+@interface DLSismosViewController : UIViewController<DLSismosLegendViewControllerDelegate>
 @property (nonatomic, retain) id <UIPageViewControllerDelegate> viewControllerDelegate;
-@property (nonatomic,weak) IBOutlet MKMapView *mapView;
+@property (weak, nonatomic) IBOutlet GMSMapView *googleMapView;
 @property (nonatomic,strong) DLMainViewController *mainView;
 @property (strong, nonatomic) IBOutlet UIButton *menuButton;
 @property (nonatomic, strong) UIButton *leftButton;
+@property (strong, nonatomic) NSMutableArray *annotationsArray;
+@property (assign, nonatomic) BOOL noSismoAlertShown;
 -(void) RefreshMap;
 @end

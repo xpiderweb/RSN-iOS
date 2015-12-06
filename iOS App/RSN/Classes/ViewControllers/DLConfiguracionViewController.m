@@ -47,12 +47,8 @@
 - (void)viewDidLoad{
     [super viewDidLoad];
     [self SetSwitchPossition];
-    magSelected = 3;
-    sendNotifications = 1;
     changesMade = 0;
     [self setNavigationItemConfiguration];
-    //SUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    //float magnitud = [[defaults valueForKey:@"magnitud"]floatValue];
     [self magButtonLoadConfig];
     
 }
@@ -60,15 +56,15 @@
 -(void) magButtonLoadConfig{
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     NSString *magButton = [prefs stringForKey:@"magButton"];
-    if ([magButton  isEqual: @"3"]) {
+    if ([magButton  isEqualToString: @"3"]) {
         [self level3ButtonHandlerStart:nil];
-    }else if ([magButton  isEqual: @"4"]){
+    }else if ([magButton  isEqualToString: @"4"]){
         [self level4ButtonHandlerStart:nil];
-    }else if ([magButton  isEqual: @"5"]){
+    }else if ([magButton  isEqualToString: @"5"]){
         [self level5ButtonHandlerStart:nil];
-    }else if ([magButton  isEqual: @"6"]){
+    }else if ([magButton  isEqualToString: @"6"]){
         [self level6ButtonHandlerStart:nil];
-    }else if ([magButton  isEqual: @"7"]){
+    }else if ([magButton  isEqualToString: @"7"]){
         [self level7ButtonHandlerStart:nil];
     }else{
         lastButtonPressIndex=5;
@@ -79,7 +75,7 @@
 -(void) SetSwitchPossition{
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     NSString *userNotification = [prefs stringForKey:@"userNotifications"];
-    if ([userNotification  isEqual: @"1"]) {
+    if ([userNotification  isEqualToString: @"1"]) {
         [_notifSwitch setOn:YES];
     }else{
         [_notifSwitch setOn:NO];
@@ -144,6 +140,7 @@
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     NSString *userToken = [prefs stringForKey:@"token"];
     NSNumber *userNotificationsValue;
+    NSNumber *parse = @YES;
     NSString *userNotificationsString = [prefs stringForKey:@"userNotifications"];
     NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
     f.numberStyle = NSNumberFormatterDecimalStyle;
@@ -157,10 +154,11 @@
     [parameters setValue:magitudeSelected forKey:@"minMagnitude"];
     [parameters setValue:userNotificationsValue forKey:@"notificationActive"];
     [parameters setValue:@"iOS" forKey:@"os"];
+    [parameters setValue:parse forKey:@"parseActive"];
     NSString *magButton = magitudeSelected;
     [prefs setObject:magButton forKey:@"magButton"];
     [prefs synchronize];
-    [manager PUT:@"http://rsnapi.herokuapp.com/api/devices/" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager PUT:@"http://rsnapiusr.ucr.ac.cr/api/devices/" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         UIAlertView *alert = [[UIAlertView alloc]

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="nFK-HT-KLO">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="nFK-HT-KLO">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -75,10 +75,10 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="NoticiaCell" id="0qw-EF-4kT" customClass="DLNoticiasTableViewCell">
-                                <rect key="frame" x="0.0" y="22" width="320" height="70"/>
+                                <rect key="frame" x="0.0" y="22" width="320" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0qw-EF-4kT" id="nTI-s2-4t8">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="69"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="59.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Réplicas del Sismo del 17 de enero del 2014" lineBreakMode="tailTruncation" numberOfLines="3" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="197" translatesAutoresizingMaskIntoConstraints="NO" id="hXJ-YZ-hSx">
@@ -104,7 +104,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o3H-k1-fYO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="435" y="5"/>
+            <point key="canvasLocation" x="1131" y="-307"/>
         </scene>
         <!--Ultimos Sismos View Controller-->
         <scene sceneID="94n-CX-T2t">
@@ -165,7 +165,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JbQ-1q-QVg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="811" y="5"/>
+            <point key="canvasLocation" x="415" y="-1171"/>
         </scene>
         <!--Sismos Container View Controller-->
         <scene sceneID="9TW-tT-NnW">
@@ -183,8 +183,9 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </containerView>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="v4R-Gk-XAA">
+                            <segmentedControl opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="v4R-Gk-XAA">
                                 <rect key="frame" x="99" y="28" width="123" height="29"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="28" id="2Yo-eY-azT"/>
                                     <constraint firstAttribute="width" constant="123" id="B2y-9v-j0D"/>
@@ -208,7 +209,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="my8-OH-xUj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2262" y="16"/>
+            <point key="canvasLocation" x="303" y="-1080"/>
         </scene>
         <!--Sismos View Controller-->
         <scene sceneID="HxC-I0-5vv">
@@ -222,17 +223,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="EBA-Te-7mR">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <color key="backgroundColor" red="0.93725490199999995" green="0.43971283490000002" blue="0.11087828149999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <gestureRecognizers/>
-                                <connections>
-                                    <outlet property="delegate" destination="SfD-Z0-7YY" id="gM7-ad-iTT"/>
-                                    <outletCollection property="gestureRecognizers" destination="zko-wC-aD4" appends="YES" id="QLR-fu-Hu8"/>
-                                </connections>
-                            </mapView>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rE2-x8-MHf" customClass="GMSMapView">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="588"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                             <segmentedControl clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="195" verticalHuggingPriority="28" placeholderIntrinsicWidth="195" placeholderIntrinsicHeight="28" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bordered" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="MER-Ss-CX2">
                                 <rect key="frame" x="38" y="505" width="244" height="36"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="9GK-qZ-zuL"/>
                                     <constraint firstAttribute="width" constant="244" id="kaa-J0-ocy"/>
@@ -264,8 +261,8 @@
                     </view>
                     <connections>
                         <outlet property="animationWait" destination="0GF-LM-S9b" id="fWE-ux-FVP"/>
+                        <outlet property="googleMapView" destination="rE2-x8-MHf" id="rBx-d8-MBc"/>
                         <outlet property="hoySemanaSegmented" destination="MER-Ss-CX2" id="4rO-Bf-GY0"/>
-                        <outlet property="mapView" destination="EBA-Te-7mR" id="f32-r4-6gf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hQf-ID-6SF" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -275,7 +272,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1165" y="5"/>
+            <point key="canvasLocation" x="77" y="-615"/>
         </scene>
         <!--Sismos Legend View Controller-->
         <scene sceneID="vaf-ix-hub">
@@ -336,7 +333,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7ho-ke-2OA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1532" y="5"/>
+            <point key="canvasLocation" x="159" y="-903"/>
         </scene>
         <!--Contacto View Controller-->
         <scene sceneID="ccf-xW-Yql">
@@ -394,7 +391,7 @@
                                 <fontDescription key="fontDescription" name="OpenSans-Semibold" family="Open Sans" pointSize="13"/>
                                 <state key="normal" backgroundImage="danos3-17.png">
                                     <color key="titleColor" red="0.50196081399917603" green="0.50196081399917603" blue="0.50196081399917603" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                    <color key="titleShadowColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="suggestionsButtonPressed:" destination="HAs-wm-YrQ" eventType="touchUpInside" id="Xwu-oc-lSX"/>
@@ -450,7 +447,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QNX-QF-NT9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="303" y="619"/>
+            <point key="canvasLocation" x="749" y="-498"/>
         </scene>
         <!--Configuracion View Controller-->
         <scene sceneID="mwh-nn-4SR">
@@ -679,7 +676,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5bK-Wr-MA5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-27" y="619"/>
+            <point key="canvasLocation" x="-266" y="-615"/>
         </scene>
         <!--Sismos Table View Controller-->
         <scene sceneID="eF2-ot-kIX">
@@ -691,14 +688,14 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleAspectFit" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Sismo" textLabel="T9g-Kk-T3E" style="IBUITableViewCellStyleDefault" id="YJQ-1k-t04">
-                                <rect key="frame" x="0.0" y="22" width="320" height="75"/>
+                                <rect key="frame" x="0.0" y="22" width="280" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="YJQ-1k-t04" id="Q4J-kF-Ka2">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="74"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="280" height="59.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Sismo, 21 de enero, de 2014 8:48pm Magnitud 3.2 Mw" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="250" id="T9g-Kk-T3E">
-                                            <rect key="frame" x="15" y="0.0" width="290" height="74"/>
+                                            <rect key="frame" x="15" y="0.0" width="250" height="59.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" name="OpenSans-Semibold" family="Open Sans" pointSize="16"/>
                                             <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -744,21 +741,18 @@
                                 <color key="textColor" red="0.19215686269999999" green="0.58039215690000001" blue="0.80784313730000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qrf-NI-Amf">
-                                <rect key="frame" x="16" y="128" width="304" height="440"/>
+                            <webView contentMode="scaleToFill" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qrf-NI-Amf">
+                                <rect key="frame" x="26" y="128" width="268" height="440"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="304" id="9SS-Ub-e8C"/>
-                                </constraints>
                             </webView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="bS5-aR-9GB" firstAttribute="top" secondItem="Mf8-RY-iAt" secondAttribute="bottom" constant="47" id="9we-GK-6rY"/>
-                            <constraint firstItem="qrf-NI-Amf" firstAttribute="leading" secondItem="PS5-5Q-eTe" secondAttribute="leadingMargin" id="Dfo-mY-0Lt"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="qrf-NI-Amf" secondAttribute="trailing" constant="-16" id="LGl-D8-1CK"/>
                             <constraint firstAttribute="centerX" secondItem="bS5-aR-9GB" secondAttribute="centerX" id="aLR-Wm-U8B"/>
                             <constraint firstItem="qrf-NI-Amf" firstAttribute="top" secondItem="bS5-aR-9GB" secondAttribute="bottom" constant="8" id="bA5-10-0W2"/>
+                            <constraint firstItem="qrf-NI-Amf" firstAttribute="leading" secondItem="PS5-5Q-eTe" secondAttribute="leading" constant="26" id="c5g-0Z-4jr"/>
+                            <constraint firstAttribute="trailing" secondItem="qrf-NI-Amf" secondAttribute="trailing" constant="26" id="wOJ-Dd-lkA"/>
                             <constraint firstItem="hkO-Hx-U8m" firstAttribute="top" secondItem="qrf-NI-Amf" secondAttribute="bottom" id="zfE-4o-GgL"/>
                         </constraints>
                     </view>
@@ -769,7 +763,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YLm-cM-mmU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1907" y="16"/>
+            <point key="canvasLocation" x="1285" y="-172"/>
         </scene>
         <!--Left View Controller-->
         <scene sceneID="1xT-cH-nz0">
@@ -783,15 +777,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="247" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" alpha="0.59999999999999998" contentMode="right" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="lineaOscura.png" translatesAutoresizingMaskIntoConstraints="NO" id="COf-t4-DL1">
-                                <rect key="frame" x="0.0" y="0.0" width="258" height="569"/>
-                            </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo-rsn2-high" translatesAutoresizingMaskIntoConstraints="NO" id="Ygf-Wh-Slk">
                                 <rect key="frame" x="0.0" y="13" width="247" height="100"/>
                                 <color key="tintColor" red="0.93725490196078431" green="0.43971283493369107" blue="0.11087828148318433" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="js3-FO-ppy"/>
-                                    <constraint firstAttribute="width" constant="247" id="rPt-Ts-cKj"/>
+                                    <constraint firstAttribute="width" constant="247" id="85j-WQ-ASk"/>
+                                    <constraint firstAttribute="height" constant="100" id="uYF-kX-Q5m"/>
                                 </constraints>
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="48" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="hrr-uB-8e8">
@@ -804,10 +795,10 @@
                                 </constraints>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SismosContainer" rowHeight="48" id="Swt-CG-AMU">
-                                        <rect key="frame" x="0.0" y="1" width="247" height="52"/>
+                                        <rect key="frame" x="0.0" y="1" width="246" height="48"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Swt-CG-AMU" id="mR5-HC-L4S">
-                                            <rect key="frame" x="0.0" y="0.0" width="247" height="52"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="246" height="48"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" alpha="0.49999999999999961" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="divisionLine" translatesAutoresizingMaskIntoConstraints="NO" id="znC-DX-ldX">
@@ -830,10 +821,10 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Noticias" rowHeight="48" id="15T-Zu-uKh">
-                                        <rect key="frame" x="0.0" y="53" width="247" height="54"/>
+                                        <rect key="frame" x="0.0" y="49" width="246" height="48"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="15T-Zu-uKh" id="LHg-NZ-vaa">
-                                            <rect key="frame" x="0.0" y="0.0" width="247" height="54"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="246" height="48"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Noticias" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="166" translatesAutoresizingMaskIntoConstraints="NO" id="ocS-c5-PKj">
@@ -852,10 +843,10 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Contacto" rowHeight="48" id="obg-SF-MDM">
-                                        <rect key="frame" x="0.0" y="107" width="247" height="54"/>
+                                        <rect key="frame" x="0.0" y="97" width="246" height="48"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="obg-SF-MDM" id="TAl-z4-mkI">
-                                            <rect key="frame" x="0.0" y="0.0" width="247" height="54"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="246" height="48"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Contacto" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="148" translatesAutoresizingMaskIntoConstraints="NO" id="ePe-bZ-l7G">
@@ -874,10 +865,10 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Configuracion" rowHeight="54" id="g7a-vA-UT8">
-                                        <rect key="frame" x="0.0" y="161" width="247" height="54"/>
+                                        <rect key="frame" x="0.0" y="145" width="246" height="54"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="g7a-vA-UT8" id="qrr-W9-tcT">
-                                            <rect key="frame" x="0.0" y="0.0" width="247" height="54"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="246" height="54"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="RSN-MenuLogoConfiguracion.png" highlightedImage="highlights-06.png" translatesAutoresizingMaskIntoConstraints="NO" id="mpQ-pE-Gse">
@@ -916,7 +907,7 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="divisionLine" translatesAutoresizingMaskIntoConstraints="NO" id="P1f-7B-T4B">
-                                <rect key="frame" x="-3" y="483" width="252" height="1"/>
+                                <rect key="frame" x="0.0" y="483" width="247" height="1"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="ZCs-Cc-HTw"/>
                                 </constraints>
@@ -940,25 +931,26 @@
                                     <action selector="twitterHandler:" destination="5mR-Ci-Ft7" eventType="touchUpInside" id="TFY-Fe-HSJ"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" alpha="0.59999999999999998" contentMode="right" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="lineaOscura.png" translatesAutoresizingMaskIntoConstraints="NO" id="COf-t4-DL1">
+                                <rect key="frame" x="0.0" y="0.0" width="258" height="569"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="OA3-eX-uxb" firstAttribute="leading" secondItem="1jK-fc-daH" secondAttribute="leadingMargin" constant="50" id="1hp-Io-qra"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="96e-if-ezC" secondAttribute="trailing" constant="-16" id="8WN-m8-V95"/>
-                            <constraint firstAttribute="centerX" secondItem="P1f-7B-T4B" secondAttribute="centerX" id="BTG-JG-qed"/>
+                            <constraint firstItem="96e-if-ezC" firstAttribute="leading" secondItem="1jK-fc-daH" secondAttribute="leadingMargin" constant="-16" id="5O1-N9-SJb"/>
                             <constraint firstAttribute="centerX" secondItem="hrr-uB-8e8" secondAttribute="centerX" id="Dvv-6U-80f"/>
                             <constraint firstItem="WOu-Sd-JJZ" firstAttribute="top" secondItem="96e-if-ezC" secondAttribute="bottom" id="F3s-bY-haE"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="P1f-7B-T4B" secondAttribute="trailing" constant="-18" id="G48-PO-2qO"/>
-                            <constraint firstItem="P1f-7B-T4B" firstAttribute="leading" secondItem="1jK-fc-daH" secondAttribute="leadingMargin" constant="-19" id="Tcl-Qd-BPR"/>
-                            <constraint firstAttribute="centerX" secondItem="96e-if-ezC" secondAttribute="centerX" id="YqW-4F-zR5"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="P1f-7B-T4B" secondAttribute="trailing" constant="-16" id="G48-PO-2qO"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Ygf-Wh-Slk" secondAttribute="trailing" constant="-16" id="Sqx-DE-usB"/>
+                            <constraint firstItem="P1f-7B-T4B" firstAttribute="leading" secondItem="1jK-fc-daH" secondAttribute="leadingMargin" constant="-16" id="Tcl-Qd-BPR"/>
                             <constraint firstItem="5gW-zi-12k" firstAttribute="top" secondItem="hrr-uB-8e8" secondAttribute="bottom" constant="25" id="bEy-AI-1rE"/>
                             <constraint firstItem="96e-if-ezC" firstAttribute="top" secondItem="P1f-7B-T4B" secondAttribute="bottom" constant="5" id="be1-j6-rEn"/>
-                            <constraint firstItem="96e-if-ezC" firstAttribute="leading" secondItem="1jK-fc-daH" secondAttribute="leadingMargin" constant="-16" id="bfG-Kp-irZ"/>
                             <constraint firstItem="OA3-eX-uxb" firstAttribute="top" secondItem="hrr-uB-8e8" secondAttribute="bottom" constant="25" id="kBf-IS-DqI"/>
                             <constraint firstAttribute="trailingMargin" secondItem="5gW-zi-12k" secondAttribute="trailing" constant="42" id="oiB-6h-zia"/>
                             <constraint firstItem="hrr-uB-8e8" firstAttribute="top" secondItem="Ygf-Wh-Slk" secondAttribute="bottom" constant="16" id="pWd-FQ-ywM"/>
-                            <constraint firstAttribute="centerX" secondItem="Ygf-Wh-Slk" secondAttribute="centerX" id="q2w-EP-r5k"/>
-                            <constraint firstItem="Ygf-Wh-Slk" firstAttribute="top" secondItem="u5g-0o-xrZ" secondAttribute="bottom" constant="-7" id="xEt-D8-y0G"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="96e-if-ezC" secondAttribute="trailing" constant="-16" id="trb-28-1aF"/>
+                            <constraint firstItem="Ygf-Wh-Slk" firstAttribute="top" secondItem="u5g-0o-xrZ" secondAttribute="bottom" constant="-7" id="xGP-gG-n57"/>
                         </constraints>
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -969,7 +961,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ikU-0j-apB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-333.5" y="650"/>
+            <point key="canvasLocation" x="40.5" y="640"/>
         </scene>
         <!--Sismo Detail View Controller-->
         <scene sceneID="ZlU-fw-R4Y">
@@ -983,8 +975,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ns1-nX-AhQ">
-                                <rect key="frame" x="23" y="138" width="297" height="430"/>
+                            <webView contentMode="scaleToFill" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ns1-nX-AhQ">
+                                <rect key="frame" x="26" y="138" width="268" height="430"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </webView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SISMO, 28 de enero del 2014, 2:24 pm., Mag: 3,1 Mw" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="q6X-Iv-nzM">
@@ -1003,9 +995,9 @@
                             <constraint firstItem="q6X-Iv-nzM" firstAttribute="top" secondItem="dlZ-wC-Ccr" secondAttribute="bottom" constant="45" id="Bh6-H6-fwJ"/>
                             <constraint firstAttribute="centerX" secondItem="q6X-Iv-nzM" secondAttribute="centerX" id="LG7-zA-xcf"/>
                             <constraint firstItem="Ns1-nX-AhQ" firstAttribute="top" secondItem="q6X-Iv-nzM" secondAttribute="bottom" constant="8" id="RGt-Ek-qX3"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Ns1-nX-AhQ" secondAttribute="trailing" constant="-16" id="bRZ-rz-ie5"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Ns1-nX-AhQ" secondAttribute="trailing" constant="10" id="bRZ-rz-ie5"/>
                             <constraint firstItem="M16-jk-DTx" firstAttribute="top" secondItem="Ns1-nX-AhQ" secondAttribute="bottom" id="fMU-fo-3pI"/>
-                            <constraint firstItem="Ns1-nX-AhQ" firstAttribute="leading" secondItem="nOW-IK-3hl" secondAttribute="leadingMargin" constant="7" id="hIq-me-FVC"/>
+                            <constraint firstItem="Ns1-nX-AhQ" firstAttribute="leading" secondItem="nOW-IK-3hl" secondAttribute="leadingMargin" constant="10" id="hIq-me-FVC"/>
                         </constraints>
                     </view>
                     <connections>
@@ -1069,9 +1061,4 @@
         <image name="sismosRecientes" width="40" height="42"/>
         <image name="ultima_22.png" width="250" height="75"/>
     </resources>
-    <simulatedMetricsContainer key="defaultSimulatedMetrics">
-        <simulatedStatusBarMetrics key="statusBar"/>
-        <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination" type="retina4"/>
-    </simulatedMetricsContainer>
 </document>

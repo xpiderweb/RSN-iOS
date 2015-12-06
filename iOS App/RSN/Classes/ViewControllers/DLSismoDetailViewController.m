@@ -59,6 +59,8 @@
     [self.sismoTitleLabel setText:[NSString stringWithFormat:@"%@",self.sismoData.title]];
     
     NSString *hthmlFixed=[sismoData.contentHtml stringByReplacingOccurrencesOfString:@"<img" withString:@"<img style=\"width:255px\" "];
+    NSString *viewport = [NSString stringWithFormat:@"<meta name='viewport' content='width=350px, initial-scale=1.0', maximum-scale=5.0, user-scalable=1>"];
+    hthmlFixed = [NSString stringWithFormat:@"%@%@", viewport, hthmlFixed];
     [self.webView loadHTMLString:hthmlFixed baseURL:nil];
 }
 

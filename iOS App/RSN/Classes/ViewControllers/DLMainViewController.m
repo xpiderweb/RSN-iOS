@@ -197,7 +197,7 @@ NSString * const DLMainViewControllerShowMenu = @"DLMainViewControllerShowMenu";
         if(velocity.x > 0) {
         } else {
             
-            _showPanel = abs([sender view].center.x - _centerViewController.view.frame.size.width/2) < _centerViewController.view.frame.size.width/2;
+            _showPanel = ([sender view].center.x - _centerViewController.view.frame.size.width/2) < _centerViewController.view.frame.size.width/2;
             
             // allow dragging only in x coordinates by only updating the x coordinate with translation position
             [sender view].center = CGPointMake([sender view].center.x + translatedPoint.x, [sender view].center.y);

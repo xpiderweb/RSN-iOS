@@ -17,6 +17,36 @@
             endingLineNumber = "163"
             landmarkName = "-saveAPIUserData"
             landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[DLConfiguracionViewController saveAPIUserData]"
+                  moduleName = "RSN"
+                  urlString = "file:///Users/lionx/Dropbox/rsn/rsn/iOS%20App/RSN/Classes/ViewControllers/DLConfiguracionViewController.m"
+                  timestampString = "455681306.295237"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "163"
+                  endingLineNumber = "163"
+                  offsetFromSymbolStart = "990">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__48-[DLConfiguracionViewController saveAPIUserData]_block_invoke"
+                  moduleName = "RSN"
+                  urlString = "file:///Users/lionx/Dropbox/rsn/rsn/iOS%20App/RSN/Classes/ViewControllers/DLConfiguracionViewController.m"
+                  timestampString = "455681306.295488"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "163"
+                  endingLineNumber = "163"
+                  offsetFromSymbolStart = "56">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -25,30 +55,44 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "RSN/Classes/Model/DLRSNModel.m"
-            timestampString = "446017693.048005"
+            filePath = "RSN/DLAppDelegate.m"
+            timestampString = "455681297.575048"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "150"
-            endingLineNumber = "150"
-            landmarkName = "-getSismosForTableViewWithDate:"
+            startingLineNumber = "82"
+            endingLineNumber = "82"
+            landmarkName = "-application:didRegisterForRemoteNotificationsWithDeviceToken:"
             landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "RSN/Classes/Model/DLRSNModel.m"
-            timestampString = "446017753.08005"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "155"
-            endingLineNumber = "155"
-            landmarkName = "-getSismosForTableViewWithDate:"
-            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[DLAppDelegate application:didRegisterForRemoteNotificationsWithDeviceToken:]"
+                  moduleName = "RSN"
+                  urlString = "file:///Users/lionx/Dropbox/rsn/rsn/iOS%20App/RSN/DLAppDelegate.m"
+                  timestampString = "455681306.308297"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "82"
+                  endingLineNumber = "82"
+                  offsetFromSymbolStart = "976">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__78-[DLAppDelegate application:didRegisterForRemoteNotificationsWithDeviceToken:]_block_invoke"
+                  moduleName = "RSN"
+                  urlString = "file:///Users/lionx/Dropbox/rsn/rsn/iOS%20App/RSN/DLAppDelegate.m"
+                  timestampString = "455681306.308469"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "82"
+                  endingLineNumber = "82"
+                  offsetFromSymbolStart = "56">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

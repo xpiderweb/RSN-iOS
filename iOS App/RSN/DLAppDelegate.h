@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "DLRSNModel.h"
+
 @interface DLAppDelegate : UIResponder <UIApplicationDelegate,DLRSNModelProtocol>
 
 @property (strong, nonatomic) UIWindow *window;

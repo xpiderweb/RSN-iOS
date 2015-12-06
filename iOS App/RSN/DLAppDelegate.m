@@ -9,9 +9,9 @@
 #import "DLAppDelegate.h"
 #import "DLRSNModel.h"
 #import <AudioToolbox/AudioToolbox.h>
-#import "TestFlight.h"
 #import <AFNetworking/AFNetworking.h>
-
+#import <Parse/Parse.h>
+#import <GoogleMaps/GoogleMaps.h>
 
 @implementation DLAppDelegate
 
@@ -19,17 +19,52 @@ NSString *idToken;
 int appBadge;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [self registerForRemoteNotification];    //[application.registerForRemoteNotifications];
+    
+    //Parse
+    [Parse setApplicationId:@"tCc4Jupa4EfbvNSg4uZZBDoj7UaNk7zRTOvAJyDS"
+                  clientKey:@"nXdiI7oWmEGxJTChhyTVeLdGKs2y4pOUUmC5Tg1R"];
+    // Register for Push Notitications
+    [self registerForRemoteNotification];
     [[launchOptions valueForKey:UIApplicationLaunchOptionsRemoteNotificationKey] description];
     NSInteger badgeCount = [UIApplication sharedApplication].applicationIconBadgeNumber;
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
     [[UIApplication sharedApplication] cancelAllLocalNotifications];
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:badgeCount];
-    // start of your application:didFinishLaunchingWithOptions // ...
-    [TestFlight takeOff:@"2a248695-dada-4fca-9ffb-821d27d0651e"];
-    // The rest of your apdd7686f1-d281-4ab8-987f-c03827b3a333plication:didFinishLaunchingWithOptions method// ...
+    [GMSServices provideAPIKey:@"AIzaSyAkTNtr-qH3QAHzP5ul8YqKHC3helYxhPk"];
     return YES;
 }
+
+- (void)applicationDidBecomeActive:(UIApplication *)application {
+    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.;
+    application.applicationIconBadgeNumber = 0;
+}
+
+- (void)registerForRemoteNotification {
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
+    {
+        //ios8 ++
+        if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)])
+        {
+            UIUserNotificationSettings* notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound categories:nil];
+            [[UIApplication sharedApplication] registerUserNotificationSettings:notificationSettings];
+        }
+    }
+    else
+    {
+        // ios7
+        if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerForRemoteNotificationTypes:)])
+        {
+            [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound)];
+        }
+    }
+}
+
+#ifdef __IPHONE_8_0
+-(void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings // available in iOS8
+{
+    [application registerForRemoteNotifications];
+}
+#endif
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
@@ -51,36 +86,7 @@ int appBadge;
     [[UIApplication sharedApplication] cancelAllLocalNotifications];
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:badgeCount];
 }
-- (void)registerForRemoteNotification {
-    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO( _iOS_8_0) ) {
-        UIUserNotificationSettings* notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound categories:nil];
-        [[UIApplication sharedApplication] registerUserNotificationSettings:notificationSettings];
-        [[UIApplication sharedApplication] registerForRemoteNotifications];
-        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-        NSString *magButton = @"3";
-        [prefs setObject:magButton forKey:@"magButton"];
-        [prefs synchronize];
-        
-    }else{
-        [[UIApplication sharedApplication] registerForRemoteNotificationTypes: (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
-        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-        NSString *magButton = @"3";
-        [prefs setObject:magButton forKey:@"magButton"];
-        [prefs synchronize];
-    }
-    
-}
 
-#ifdef __IPHONE_8_0
-- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings {
-    [application registerForRemoteNotifications];
-}
-#endif
-- (void)applicationDidBecomeActive:(UIApplication *)application
-{
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-    application.applicationIconBadgeNumber = 0;
-}
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
@@ -90,6 +96,7 @@ int appBadge;
     NSString *token = [[deviceToken description] stringByTrimmingCharactersInSet: [NSCharacterSet characterSetWithCharactersInString:@"<>"]];
     token = [token stringByReplacingOccurrencesOfString:@" " withString:@""];
     NSNumber* sendMeNotifications = @YES;
+    NSNumber *parse = @YES;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager.requestSerializer setValue:@"547406e0fa85847666283b61" forHTTPHeaderField:@"Api-key"];
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
@@ -97,7 +104,10 @@ int appBadge;
     [parameters setValue:@"3" forKey:@"minMagnitude"];
     [parameters setValue: sendMeNotifications forKey:@"notificationActive"];
     [parameters setValue:@"iOS" forKey:@"os"];
-    [manager POST:@"http://rsnapi.herokuapp.com/api/devices/" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [parameters setValue:parse forKey:@"parseActive"];
+    [parameters setValue:parse forKey:@"parse"];
+    NSLog(@"%@", parameters);
+    [manager POST:@"http://rsnapiusr.ucr.ac.cr/api/devices/" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
     }];
@@ -117,12 +127,6 @@ int appBadge;
     
 }
 
-- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
-    NSLog(@"%@, %@", error, error.localizedDescription);
-    
-}
-
-
 
 -(void)getLastSismosFromModel{
     [[DLRSNModel sharedInstance]setDelegate:self];
@@ -138,6 +142,12 @@ int appBadge;
     [defaults setValue:result forKey:@"idToken"];
     [defaults synchronize];
 }
+//Your app receives push notification.
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+    NSLog(@"%@, %@", error, error.localizedDescription);
+    
+}
+
 //Your app receives push notification.
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {

@@ -4,7 +4,17 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Pods-AFNetworking.xcscheme</key>
+		<key>AFNetworking.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Bolts.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Facebook-iOS-SDK.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -17,12 +27,22 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>5521DB2DD8C2185842616756</key>
+		<key>12E6127FF1191BFF3A43C4415B995510</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7B25DE33C91CC9028CBB8FC7</key>
+		<key>312F322F5F32273AF0342634662CFFDD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5CB0A37F21B4D0316DFEBF7FC83B8CF1</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B7D3D818B473BE3AAA28AF5EE92D6B41</key>
 		<dict>
 			<key>primary</key>
 			<true/>
